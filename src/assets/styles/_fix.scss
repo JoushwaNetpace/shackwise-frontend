@@ -1,0 +1,88 @@
+.page-border-none {
+    margin-left: 0px;
+    border: 0px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    background: none;
+    color: #9DA6AF;
+    width: 65px;
+}
+
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.filter-date-picker {
+    align-items: center;
+}
+
+.filter-date-picker .Connectors-top-searchbar-div {
+    margin-right: 15px;
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+.device-detail-adapter-connection-tab {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}
+
+.device-detail-ac-title {
+    font-size: 22px;
+    text-transform: capitalize;
+}
+
+.device-detail-ac-img {
+    width: 40px !important;
+}
+
+.selected-tab-text[_ngcontent-wrg-c22]:focus {
+    outline: 0px #dcdde1 !important;
+}
+
+.tabs-aggre .nav-link button,
+.tabs-aggre .nav-link {
+    border: 0px solid #dcdde1 !important;
+}
+
+
+button:focus,
+input:focus,
+select:focus {
+    outline: 0px dotted !important;
+    outline: 0px auto -webkit-focus-ring-color !important;
+}
+
+button {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    outline: 0px solid #5e5e5e !important;
+    -webkit-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 12px 0px rgba(0, 0, 0, 0.2);
+
+}
+
+.device-disclosure .device-box-logo {
+    width: auto !important;
+    text-align: right;
+}
+
+.flex-align-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.dashboard-search {
+    width: 100%;
+    margin-right: 10px;
+}
+
+.dashboard-search-select select {
+    border: none;
+    padding: 12px;
+}

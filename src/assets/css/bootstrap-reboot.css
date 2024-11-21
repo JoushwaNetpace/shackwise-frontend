@@ -1,0 +1,328 @@
+/*!
+ * Bootstrap Reboot v4.3.1 (https://getbootstrap.com/)
+ * Copyright 2011-2019 The Bootstrap Authors
+ * Copyright 2011-2019 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
+ */
+/*************** TALHA Variables *********************/
+/* line 19, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+*,
+*::before,
+*::after {
+  box-sizing: border-box; }
+
+/* line 25, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+
+/* line 35, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
+  display: block; }
+
+/* line 46, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #212529;
+  text-align: left;
+  background-color: #fff; }
+
+/* line 62, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+[tabindex="-1"]:focus {
+  outline: 0 !important; }
+
+/* line 72, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+hr {
+  box-sizing: content-box;
+  height: 0;
+  overflow: visible; }
+
+/* line 88, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem; }
+
+/* line 97, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+p {
+  margin-top: 0;
+  margin-bottom: 1rem; }
+
+/* line 110, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+abbr[title],
+abbr[data-original-title] {
+  text-decoration: underline;
+  text-decoration: underline dotted;
+  cursor: help;
+  border-bottom: 0;
+  text-decoration-skip-ink: none; }
+
+/* line 119, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit; }
+
+/* line 125, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+ol,
+ul,
+dl {
+  margin-top: 0;
+  margin-bottom: 1rem; }
+
+/* line 132, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+ol ol,
+ul ul,
+ol ul,
+ul ol {
+  margin-bottom: 0; }
+
+/* line 139, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+dt {
+  font-weight: 700; }
+
+/* line 143, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+dd {
+  margin-bottom: .5rem;
+  margin-left: 0; }
+
+/* line 148, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+blockquote {
+  margin: 0 0 1rem; }
+
+/* line 152, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+b,
+strong {
+  font-weight: bolder; }
+
+/* line 157, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+small {
+  font-size: 80%; }
+
+/* line 166, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+sub,
+sup {
+  position: relative;
+  font-size: 75%;
+  line-height: 0;
+  vertical-align: baseline; }
+
+/* line 174, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+sub {
+  bottom: -.25em; }
+
+/* line 175, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+sup {
+  top: -.5em; }
+
+/* line 182, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+a {
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent; }
+  /* line 13, E:/Projects/Cyber-Security/build/scss/mixins/_hover.scss */
+  a:hover {
+    color: #0056b3;
+    text-decoration: underline; }
+
+/* line 199, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none; }
+  /* line 17, E:/Projects/Cyber-Security/build/scss/mixins/_hover.scss */
+  a:not([href]):not([tabindex]):hover, a:not([href]):not([tabindex]):focus {
+    color: inherit;
+    text-decoration: none; }
+  /* line 208, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+  a:not([href]):not([tabindex]):focus {
+    outline: 0; }
+
+/* line 218, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+pre,
+code,
+kbd,
+samp {
+  font-family: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1em; }
+
+/* line 226, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+pre {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto; }
+
+/* line 240, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+figure {
+  margin: 0 0 1rem; }
+
+/* line 250, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+img {
+  vertical-align: middle;
+  border-style: none; }
+
+/* line 255, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+svg {
+  overflow: hidden;
+  vertical-align: middle; }
+
+/* line 267, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+table {
+  border-collapse: collapse; }
+
+/* line 271, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+caption {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  color: #6c757d;
+  text-align: left;
+  caption-side: bottom; }
+
+/* line 279, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+th {
+  text-align: inherit; }
+
+/* line 290, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+label {
+  display: inline-block;
+  margin-bottom: 0.5rem; }
+
+/* line 299, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+button {
+  border-radius: 0; }
+
+/* line 308, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color; }
+
+/* line 313, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit; }
+
+/* line 324, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+button,
+input {
+  overflow: visible; }
+
+/* line 329, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+button,
+select {
+  text-transform: none; }
+
+/* line 337, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+select {
+  word-wrap: normal; }
+
+/* line 345, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button; }
+
+/* line 358, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+button:not(:disabled),
+[type="button"]:not(:disabled),
+[type="reset"]:not(:disabled),
+[type="submit"]:not(:disabled) {
+  cursor: pointer; }
+
+/* line 365, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  padding: 0;
+  border-style: none; }
+
+/* line 373, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+input[type="radio"],
+input[type="checkbox"] {
+  box-sizing: border-box;
+  padding: 0; }
+
+/* line 380, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  -webkit-appearance: listbox; }
+
+/* line 392, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+textarea {
+  overflow: auto;
+  resize: vertical; }
+
+/* line 398, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0; }
+
+/* line 413, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+legend {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin-bottom: .5rem;
+  font-size: 1.5rem;
+  line-height: inherit;
+  color: inherit;
+  white-space: normal; }
+
+/* line 425, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+progress {
+  vertical-align: baseline; }
+
+/* line 430, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto; }
+
+/* line 435, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+[type="search"] {
+  outline-offset: -2px;
+  -webkit-appearance: none; }
+
+/* line 448, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none; }
+
+/* line 457, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+::-webkit-file-upload-button {
+  font: inherit;
+  -webkit-appearance: button; }
+
+/* line 466, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+output {
+  display: inline-block; }
+
+/* line 470, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+summary {
+  display: list-item;
+  cursor: pointer; }
+
+/* line 475, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+template {
+  display: none; }
+
+/* line 481, E:/Projects/Cyber-Security/build/scss/_reboot.scss */
+[hidden] {
+  display: none !important; }
+
+/*# sourceMappingURL=bootstrap-reboot.css.map */
