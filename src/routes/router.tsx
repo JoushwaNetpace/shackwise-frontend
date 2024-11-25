@@ -7,6 +7,8 @@ import Menu from "../pages/Auth/Menu/Menu";
 import SetPriorities from "../pages/Auth/SetPriorities/SetPriorities";
 import { MainLayout } from "../layouts/MainLayout";
 import SearchProperty from "../pages/Home/SearchProperty/SearchProperty";
+import RateProperty from "../pages/Home/RateProperty/RateProperty";
+import { LeaderBoard } from "../pages/Home/LeaderBoard/LeaderBoard";
 
 export const router = createBrowserRouter([
   {
@@ -51,6 +53,14 @@ export const router = createBrowserRouter([
       {
         path: "search-property",
         element: <SearchProperty />,
+      },
+      {
+        path: "rate-property",
+        element: <RateProperty />,
+      },
+      {
+        path: "leaderboard",
+        element: <LeaderBoard />,
       },
     ],
   },
