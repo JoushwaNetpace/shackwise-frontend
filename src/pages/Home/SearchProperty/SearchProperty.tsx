@@ -1,7 +1,10 @@
 import React from "react";
 import { LocationIcon } from "../../../config/Images";
+import { useNavigate } from "react-router-dom";
 
 const SearchProperty: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="container">
@@ -30,7 +33,14 @@ const SearchProperty: React.FC = () => {
                   <img src={LocationIcon} alt="" />
                 </span>
               </div>
-              <button className="search-btn">Search</button>
+              <button
+                className="search-btn"
+                onClick={() => {
+                  navigate("/home/rate-property");
+                }}
+              >
+                Search
+              </button>
             </div>
           </div>
         </div>

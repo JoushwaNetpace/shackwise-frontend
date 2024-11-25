@@ -1,121 +1,132 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   BellIcon,
   MenuIcon,
   ShackwiseLogo,
   UserPic,
 } from "../../config/Images";
+import useClickOutside from "../../hooks/useClickOutside";
+import { Link } from "react-router-dom";
 
 export const Header: React.FC = () => {
+  // State to track dropdown visibility
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const [showPushyNavMenu, setshowPushyNavMenu] = useState(false);
+
+  // Ref to detect click outside the dropdown
+  const dropdownRef = useRef(null);
+  const mobileNavRef = useRef(null);
+
+  // Use the custom hook to handle click outside the dropdown
+  const { handleEvent } = useClickOutside(dropdownRef, (isOutside, event) => {
+    if (isOutside) {
+      setShowDropdown(false); // Close dropdown when click outside
+    }
+  });
+  // Use the custom hook to handle click outside the dropdown
+  const { handleEvent: handleEventPushyNav } = useClickOutside(
+    mobileNavRef,
+    (isOutside, event) => {
+      if (isOutside) {
+        setshowPushyNavMenu(false); // Close dropdown when click outside
+      }
+    }
+  );
+
+  // Toggle dropdown visibility
+  const handleDropdownToggle = () => {
+    setShowDropdown((prevState) => !prevState);
+  };
+
+  useEffect(() => {
+    const handleEvent = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setShowDropdown(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleEvent);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleEvent);
+    };
+  }, []);
+
   return (
     <>
-      {/* <!-- Pushy Menu --> */}
-      <nav className="pushy pushy-left" data-focus="#first-link">
+      {/* <!-- Pushy Menu Mobile--> */}
+      <nav
+        className={`pushy    pushy-left 
+          ${showPushyNavMenu ? "pushy-open-left" : "pushy-left"}
+        
+        `}
+        data-focus="#first-link"
+        ref={mobileNavRef}
+      >
         <div className="pushy-content">
           <ul>
             <li className="pushy-link">
-              <a href="#" className="menu-notification relative">
-                <div className="user-profile">
-                  JD
-                  {/* <!-- <span>3</span> --> */}
-                </div>
-
-                <div className="profile-name-mobile">
-                  Hi Daniels
-                  {/* <!-- <div className="profile-category">
-                Admin
-              </div> --> */}
-                </div>
-              </a>
+              <Link to="#" className="menu-notification relative">
+                <div className="user-profile">JD</div>
+                <div className="profile-name-mobile">Hi Daniels</div>
+              </Link>
             </li>
 
             <li className="pushy-submenu pushy-link">
-              <a href="#">
+              <Link to="/home/leaderboard">
                 <div className="menu-img dashbord-icon"></div>
                 <div>Leaderboard</div>
-              </a>
-              {/* <!-- <button id="first-link">Dashboard</button> -->
-            <!-- <ul>
-                  <li className="pushy-submenu">
-                      <button>Sub-Submenu 1</button>
-                      <ul>
-                          <li className="pushy-link"><a href="#">Item 1</a></li>
-                          <li className="pushy-link"><a href="#">Item 2</a></li>
-                      </ul>
-                  </li>
-                  <li className="pushy-submenu">
-                      <button>Sub-Submenu 2</button>
-                      <ul>
-                          <li className="pushy-link"><a href="#">Item 1</a></li>
-                          <li className="pushy-link"><a href="#">Item 2</a></li>
-                      </ul>
-                  </li>
-                  <li className="pushy-link"><a href="#">Item 1</a></li>
-                  <li className="pushy-link"><a href="#">Item 2</a></li>
-              </ul> --> */}
+              </Link>
             </li>
 
             <li className="pushy-link">
-              <a href="#">
+              <Link to="#">
                 <div className="menu-img devices-icon"></div>
                 <div>Rate home</div>
-              </a>
+              </Link>
             </li>
             <li className="pushy-link">
-              <a href="#">
+              <Link to="#">
                 <div className="menu-img users-icon"></div>
                 <div>Priorities</div>
-              </a>
+              </Link>
             </li>
             <li className="pushy-link">
-              <a href="#">
+              <Link to="#">
                 <div className="menu-img policy-icon"></div>
                 <div>invite/connect</div>
-              </a>
+              </Link>
             </li>
             <li className="pushy-link">
-              <a href="#">
+              <Link to="#">
                 <div className="menu-img connectors-icon"></div>
-
                 <div className="">share/compare</div>
-              </a>
+              </Link>
             </li>
             <li className="pushy-link">
-              <a href="#">
+              <Link to="#">
                 <div className="menu-img reports-icon"></div>
                 <div>how it works</div>
-              </a>
+              </Link>
             </li>
 
             <div className="mobile-menu-bottom">
-              <a href="#">
+              <Link to="#">
                 <div className="position-relative">
                   <img src={BellIcon} />
                   <span className="notification-red-circle">3</span>
                 </div>
                 <div className="ml-3">Notifications</div>
-              </a>
-              {/* <!-- <a href="#">
-            <div className="menu-img help-icon"></div>
-            <div>
-              Help
-            </div>
-          </a>
-
-          <a href="#">
-            <div className="menu-img settings-icon"></div>
-
-            <div>
-              Settings
-            </div>
-          </a> --> */}
+              </Link>
             </div>
           </ul>
         </div>
       </nav>
-
-      {/* <!-- Site Overlay --> */}
-      {/* <div className="site-overlay"></div> */}
 
       <div className="container-fluid p-0 header-wrap">
         <div className="container">
@@ -132,38 +143,31 @@ export const Header: React.FC = () => {
               <ul className="p-0">
                 <li>
                   <div className="menu-img dashbord-icon"></div>
-
-                  <a href="#" className="active-link">
+                  <Link to="/home/leaderboard" className="active-link">
                     Leaderboard
-                  </a>
-                  {/* <!-- <ul className="header-submenu">
-              <li><a href="#">SubMenu 2</a></li>
-              <li><a href="#">SubMenu 3</a></li>
-              <li><a href="#">SubMenu 4</a></li>
-              <li><a href="#">SubMenu 5</a></li>
-            </ul> --> */}
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img devices-icon"></div>
-                  <a href="#">Rate home</a>
+                  <Link to="#">Rate home</Link>
                 </li>
                 <li>
                   <div className="menu-img users-icon"></div>
-                  <a href="#">priorities</a>
+                  <Link to="#">priorities</Link>
                 </li>
                 <li>
                   <div className="menu-img policy-icon"></div>
-                  <a href="#">invite/connect</a>
+                  <Link to="#">invite/connect</Link>
                 </li>
                 <li>
                   <div className="menu-img connectors-icon"></div>
-                  <a href="#" className="">
+                  <Link to="#" className="">
                     share/compare
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img reports-icon"></div>
-                  <a href="#">how it works</a>
+                  <Link to="#">how it works</Link>
                 </li>
               </ul>
             </div>
@@ -176,7 +180,7 @@ export const Header: React.FC = () => {
                 <div className="user-profile">JD</div>
               </div>
 
-              <div className="dropdown ml-2">
+              <div className="dropdown ml-2" ref={dropdownRef}>
                 <a
                   href="#"
                   className="dropdown-toggle"
@@ -184,14 +188,17 @@ export const Header: React.FC = () => {
                   id="dropdownMenuButton"
                   data-toggle="dropdown"
                   aria-haspopup="true"
-                  aria-expanded="false"
+                  aria-expanded={showDropdown ? "true" : "false"}
+                  onClick={handleDropdownToggle}
                 >
                   <img src={BellIcon} />
                   <span className="notification-red-circle">3</span>
                 </a>
 
                 <div
-                  className="dropdown-menu notification-dropdow-div"
+                  className={`dropdown-menu notification-dropdow-div ${
+                    showDropdown ? "show" : ""
+                  }`}
                   aria-labelledby="dropdownMenuButton"
                 >
                   <div className="dropdown-menu1">
@@ -201,7 +208,6 @@ export const Header: React.FC = () => {
                           <span>
                             <strong>Notifications</strong>
                           </span>
-                          {/* <!-- <a href="" className="float-right text-light">View All</a> --> */}
                         </div>
                       </div>
                     </div>
@@ -211,7 +217,6 @@ export const Header: React.FC = () => {
                         <li className="notification-box">
                           <div className="row-info">
                             <div className="text-left">
-                              {/* <!-- <div className="c-red-notification">&nbsp;</div> --> */}
                               <div className="userpic-wrap">
                                 <img
                                   src={UserPic}
@@ -223,9 +228,6 @@ export const Header: React.FC = () => {
                               <strong className="text-info">
                                 Rony sent you a Share request
                               </strong>
-                              {/* <!-- <div className="subline-text">
-                            Lorem ipsum dolor sit amet, consectetur
-                          </div> --> */}
                             </div>
                             <div>
                               <a href="" className="accept-text">
@@ -248,7 +250,10 @@ export const Header: React.FC = () => {
               </div>
             </div>
 
-            <button className="menu-btn">
+            <button
+              className="menu-btn"
+              onClick={() => setshowPushyNavMenu(!showPushyNavMenu)}
+            >
               <img src={MenuIcon} />
             </button>
           </header>
