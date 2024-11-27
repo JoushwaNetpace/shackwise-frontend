@@ -10,7 +10,7 @@ const ChooseRole: React.FC = () => {
         <div className="col-lg-12 text-center">
           <div
             className="login"
-            style={{ height: `calc(100vh - 220px)` }} // Corrected inline style
+            style={{ height: `calc(100vh - 200px)` }} // Corrected inline style
           >
             <div className="login-form">
               <div className="login-logo mt-5">
@@ -18,10 +18,10 @@ const ChooseRole: React.FC = () => {
               </div>
 
               <div className="choose-role-btns-wrap">
-                <Link to="/register" className="btn-round">
+                <Link to="/register/USER_AGENT" className="btn-round">
                   I am an Agent
                 </Link>
-                <Link to="/register" className="btn-round">
+                <Link to="/register/USER_BUYER" className="btn-round">
                   I am a Home Buyer
                 </Link>
               </div>

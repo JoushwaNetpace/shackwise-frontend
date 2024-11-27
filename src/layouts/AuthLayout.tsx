@@ -5,7 +5,12 @@ const AuthLayout: React.FC = () => {
   return (
     <div className="container-fluid main-wrapper p-0">
       {/* Render the routed child components here */}
-      <Outlet />
+
+      <div className="container">
+        <div className="row m-0">
+          <Outlet />
+        </div>
+      </div>
 
       <br />
       <br />

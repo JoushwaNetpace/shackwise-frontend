@@ -2,6 +2,8 @@ import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import { MainLayout } from "../layouts/MainLayout";
+import LoadingPage from "../components/common/LoadingPage";
+import ErrorBoundary from "../components/common/ErrorBoundary"; // Import the ErrorBoundary
 
 // Lazy load the components
 const ChooseRole = lazy(() => import("../pages/Auth/ChooseRole/ChooseRole"));
@@ -23,11 +25,10 @@ export const router = createBrowserRouter([
   {
     path: "/",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingPage />}>
         <AuthLayout />
       </Suspense>
     ),
-
     children: [
       {
         index: true,
@@ -36,41 +37,51 @@ export const router = createBrowserRouter([
       {
         path: "choose-role",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <ChooseRole />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <ChooseRole />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
-        path: "register",
+        path: "register/:userType",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Register />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <Register />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
         path: "login",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Login />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <Login />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
         path: "menu",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <Menu />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <Menu />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
         path: "set-priorities",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <SetPriorities />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <SetPriorities />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
     ],
@@ -78,7 +89,7 @@ export const router = createBrowserRouter([
   {
     path: "/home",
     element: (
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<LoadingPage />}>
         <MainLayout />
       </Suspense>
     ),
@@ -90,25 +101,31 @@ export const router = createBrowserRouter([
       {
         path: "search-property",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <SearchProperty />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <SearchProperty />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
         path: "rate-property",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <RateProperty />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <RateProperty />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
       {
         path: "leaderboard",
         element: (
-          <Suspense fallback={<div>Loading...</div>}>
-            <LeaderBoard />
-          </Suspense>
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <LeaderBoard />
+            </Suspense>
+          </ErrorBoundary>
         ),
       },
     ],

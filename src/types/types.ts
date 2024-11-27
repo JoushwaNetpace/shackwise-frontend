@@ -62,3 +62,19 @@ export interface IIUserModelType {
   passwordResetCode?: string | null;
   isVerified?: boolean;
 }
+
+export interface ITextInput {
+  name?: string;
+
+  value: string; // The value of the input
+  title: string; // The value of the input
+  placeHolder: string; // The value of the input
+  setValue: (value: string) => void; // Function to update the input value
+  type?: string; // Type of the input (e.g., "text", "password")
+  isPasswordField?: boolean; // Boolean to determine if it's a password field
+  isNumericField?: boolean; // Boolean to determine if it's a password field
+  maxLength?: number; // Boolean to determine if it's a password field
+  inputMode?: string; // Boolean to determine if it's a password field
+  error?: boolean; // Boolean to indicate if there's an error
+  setError?: (error: boolean) => void; // Function to set the error state
+}
