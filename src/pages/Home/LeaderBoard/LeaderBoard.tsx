@@ -3,7 +3,7 @@ import SearchBar from "../../../components/Shared/SearchBar";
 import { propertyDataList } from "../../../data/data";
 import PropertyItem from "../../../components/Shared/PropertyItem";
 
-export const LeaderBoard: React.FC = () => {
+const LeaderBoard: React.FC = () => {
   return (
     <div className="container">
       <div className="row m-0">
@@ -41,3 +41,4 @@ export const LeaderBoard: React.FC = () => {
     </div>
   );
 };
+export default LeaderBoard;
