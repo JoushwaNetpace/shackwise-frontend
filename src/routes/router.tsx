@@ -1,66 +1,132 @@
+import React, { Suspense, lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
-import ChooseRole from "../pages/Auth/ChooseRole/ChooseRole";
 import AuthLayout from "../layouts/AuthLayout";
-import Register from "../pages/Auth/Register/Register";
-import Login from "../pages/Auth/Login/Login";
-import Menu from "../pages/Auth/Menu/Menu";
-import SetPriorities from "../pages/Auth/SetPriorities/SetPriorities";
 import { MainLayout } from "../layouts/MainLayout";
-import SearchProperty from "../pages/Home/SearchProperty/SearchProperty";
-import RateProperty from "../pages/Home/RateProperty/RateProperty";
-import { LeaderBoard } from "../pages/Home/LeaderBoard/LeaderBoard";
+import LoadingPage from "../components/common/LoadingPage";
+import ErrorBoundary from "../components/common/ErrorBoundary"; // Import the ErrorBoundary
+
+// Lazy load the components
+const ChooseRole = lazy(() => import("../pages/Auth/ChooseRole/ChooseRole"));
+const Register = lazy(() => import("../pages/Auth/Register/Register"));
+const Login = lazy(() => import("../pages/Auth/Login/Login"));
+const Menu = lazy(() => import("../pages/Auth/Menu/Menu"));
+const SetPriorities = lazy(
+  () => import("../pages/Auth/SetPriorities/SetPriorities")
+);
+const SearchProperty = lazy(
+  () => import("../pages/Home/SearchProperty/SearchProperty")
+);
+const RateProperty = lazy(
+  () => import("../pages/Home/RateProperty/RateProperty")
+);
+const LeaderBoard = lazy(() => import("../pages/Home/LeaderBoard/LeaderBoard"));
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <AuthLayout />,
-
+    element: (
+      <Suspense fallback={<LoadingPage />}>
+        <AuthLayout />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
         element: <Navigate to="choose-role" replace />, // Redirect root to /choose-role
       },
       {
-        path: "choose-role", // No leading slash, it's a child path
-        element: <ChooseRole />,
+        path: "choose-role",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <ChooseRole />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
-        path: "register", // No leading slash, it's a sibling path to choose-role
-        element: <Register />,
+        path: "register/:userType",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <Register />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
-        path: "login", // No leading slash, it's a sibling path to choose-role
-        element: <Login />,
+        path: "login",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <Login />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
-        path: "menu", // No leading slash, it's a sibling path to choose-role
-        element: <Menu />,
+        path: "menu",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <Menu />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
-        path: "set-priorities", // No leading slash, it's a sibling path to choose-role
-        element: <SetPriorities />,
+        path: "set-priorities",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <SetPriorities />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
     ],
   },
   {
     path: "/home",
-    element: <MainLayout />, // A separate layout for Home routes (optional)
+    element: (
+      <Suspense fallback={<LoadingPage />}>
+        <MainLayout />
+      </Suspense>
+    ),
     children: [
       {
         index: true,
-        element: <Navigate to="search-property" replace />, // Redirect root to /choose-role
+        element: <Navigate to="search-property" replace />, // Redirect root to /search-property
       },
       {
         path: "search-property",
-        element: <SearchProperty />,
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <SearchProperty />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
         path: "rate-property",
-        element: <RateProperty />,
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <RateProperty />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
       {
         path: "leaderboard",
-        element: <LeaderBoard />,
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <LeaderBoard />
+            </Suspense>
+          </ErrorBoundary>
+        ),
       },
     ],
   },
