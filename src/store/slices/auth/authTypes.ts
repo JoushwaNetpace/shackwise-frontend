@@ -6,7 +6,10 @@ export interface IAuthUser {
 
 export interface IAuthResponse {
   user: IAuthUser;
-  token: string;
+  data: {
+    token: string;
+    [key: string]: any; // Allows for additional properties if needed
+  };
 }
 
 export interface LoginPayload {

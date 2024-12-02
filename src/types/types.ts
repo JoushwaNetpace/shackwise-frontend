@@ -2,6 +2,12 @@ export interface IPriorityOption {
   label: string;
   placeHolder: string;
 }
+
+export interface typeErrorResponse {
+  success: boolean;
+  message: string;
+  data: object;
+}
 export interface IProperty {
   _id: string;
   price: string;
@@ -77,4 +83,6 @@ export interface ITextInput {
   inputMode?: string; // Boolean to determine if it's a password field
   error?: boolean; // Boolean to indicate if there's an error
   setError?: (error: boolean) => void; // Function to set the error state
+  isPasswordVisible?: boolean; // Boolean to indicate if there's an error
+  setIsPasswordVisible?: (value: boolean) => void; // Function to set the error state
 }

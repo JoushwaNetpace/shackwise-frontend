@@ -1,6 +1,7 @@
 // src/api/axiosInstance.ts
 
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios";
+import { getTokenFromCookie } from "../utils/CookieUtils";
 
 // Define a type for your API responses if needed
 interface ApiResponse<T> {
@@ -22,7 +23,7 @@ const axiosInstance: AxiosInstance = axios.create({
 axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // You can modify the request config here, e.g., add authorization tokens
-    const token = localStorage.getItem("token"); // Example token retrieval
+    const token = getTokenFromCookie(); // Example token retrieval
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }
@@ -45,11 +46,11 @@ axiosInstance.interceptors.response.use(
     const { response } = error;
     if (response) {
       // The request was made and the server responded with a status code
-      console.error("Error Response:", response.data);
-      console.error("Error Status:", response.status);
+      // console.error("Error Response:", response.data);
+      // console.error("Error Status:", response.status);
     } else {
       // The request was made but no response was received
-      console.error("Error Message:", error.message);
+      // console.error("Error Message:", error.message);
     }
     return Promise.reject(error);
   }

@@ -39,6 +39,11 @@ export { default as ShareIconYellow } from "../assets/images/share-icon-yellow.s
 export { default as SqftIcon } from "../assets/images/sqft-icon.svg";
 export { default as StarIcon } from "../assets/images/star-icon.svg";
 export { default as UpArrowIcon } from "../assets/images/up-arrow.svg";
+export { default as SuccessIcon } from "../assets/images/success-svg.svg";
+
+// GIFs
+export { default as SuccessAnimationIcon } from "../assets/images/success-animation-icon.json";
+export { default as PageNotFoundAnimationIcon } from "../assets/images/page-not-found-animation.json";
 
 // PNGs
 export { default as EyeIconPng } from "../assets/images/eye-icon.png";

@@ -1,18 +1,19 @@
-import React, { Suspense, lazy } from "react";
+import { Suspense, lazy } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import AuthLayout from "../layouts/AuthLayout";
 import { MainLayout } from "../layouts/MainLayout";
 import LoadingPage from "../components/common/LoadingPage";
 import ErrorBoundary from "../components/common/ErrorBoundary"; // Import the ErrorBoundary
+import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
+import NotFound from "../components/common/NotFound";
+import ProtectedRoute from "./ProtectedRoute";
+import GuestRoute from "./GuestRoute"; // Import GuestRoute component
 
 // Lazy load the components
 const ChooseRole = lazy(() => import("../pages/Auth/ChooseRole/ChooseRole"));
 const Register = lazy(() => import("../pages/Auth/Register/Register"));
 const Login = lazy(() => import("../pages/Auth/Login/Login"));
 const Menu = lazy(() => import("../pages/Auth/Menu/Menu"));
-const SetPriorities = lazy(
-  () => import("../pages/Auth/SetPriorities/SetPriorities")
-);
 const SearchProperty = lazy(
   () => import("../pages/Home/SearchProperty/SearchProperty")
 );
@@ -20,8 +21,12 @@ const RateProperty = lazy(
   () => import("../pages/Home/RateProperty/RateProperty")
 );
 const LeaderBoard = lazy(() => import("../pages/Home/LeaderBoard/LeaderBoard"));
+const SetPriorities = lazy(
+  () => import("../pages/Auth/SetPriorities/SetPriorities")
+);
 
 export const router = createBrowserRouter([
+  // Auth Routes
   {
     path: "/",
     element: (
@@ -37,35 +42,77 @@ export const router = createBrowserRouter([
       {
         path: "choose-role",
         element: (
-          <ErrorBoundary>
-            <Suspense fallback={<LoadingPage />}>
-              <ChooseRole />
-            </Suspense>
-          </ErrorBoundary>
+          <GuestRoute>
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingPage />}>
+                <ChooseRole />
+              </Suspense>
+            </ErrorBoundary>
+          </GuestRoute>
         ),
+      },
+      {
+        path: "register",
+        element: <Navigate to="/choose-role" replace />, // Redirect to choose-role
       },
       {
         path: "register/:userType",
         element: (
-          <ErrorBoundary>
-            <Suspense fallback={<LoadingPage />}>
-              <Register />
-            </Suspense>
-          </ErrorBoundary>
+          <GuestRoute>
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingPage />}>
+                <Register />
+              </Suspense>
+            </ErrorBoundary>
+          </GuestRoute>
         ),
       },
       {
         path: "login",
         element: (
+          <GuestRoute>
+            <ErrorBoundary>
+              <Suspense fallback={<LoadingPage />}>
+                <Login />
+              </Suspense>
+            </ErrorBoundary>
+          </GuestRoute>
+        ),
+      },
+      {
+        path: "verify-email/:token",
+        element: (
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
-              <Login />
+              <VerifyEmail />
             </Suspense>
           </ErrorBoundary>
         ),
       },
       {
-        path: "menu",
+        path: "*", // Catch all unmatched routes
+        element: (
+          <ErrorBoundary>
+            <NotFound />
+          </ErrorBoundary>
+        ),
+      },
+    ],
+  },
+
+  // Menu Routes
+  {
+    path: "/menu",
+    element: (
+      <ProtectedRoute>
+        <Suspense fallback={<LoadingPage />}>
+          <AuthLayout />
+        </Suspense>
+      </ProtectedRoute>
+    ),
+    children: [
+      {
+        index: true,
         element: (
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
@@ -75,7 +122,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "set-priorities",
+        path: "set-priorities", // Use relative path
         element: (
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
@@ -84,14 +131,26 @@ export const router = createBrowserRouter([
           </ErrorBoundary>
         ),
       },
+      {
+        path: "*", // Catch all unmatched routes
+        element: (
+          <ErrorBoundary>
+            <NotFound />
+          </ErrorBoundary>
+        ),
+      },
     ],
   },
+
+  // Home Routes
   {
     path: "/home",
     element: (
-      <Suspense fallback={<LoadingPage />}>
-        <MainLayout />
-      </Suspense>
+      <ProtectedRoute>
+        <Suspense fallback={<LoadingPage />}>
+          <MainLayout />
+        </Suspense>
+      </ProtectedRoute>
     ),
     children: [
       {
@@ -125,6 +184,14 @@ export const router = createBrowserRouter([
             <Suspense fallback={<LoadingPage />}>
               <LeaderBoard />
             </Suspense>
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: "*", // Catch all unmatched routes
+        element: (
+          <ErrorBoundary>
+            <NotFound />
           </ErrorBoundary>
         ),
       },

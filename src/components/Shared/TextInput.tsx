@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { ITextInput } from "../../types/types";
 
 const TextInput: React.FC<ITextInput> = ({
@@ -13,14 +13,10 @@ const TextInput: React.FC<ITextInput> = ({
   maxLength,
   inputMode,
   name,
+  isPasswordVisible,
+  setIsPasswordVisible,
 }) => {
   // State to manage password visibility
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  // Function to toggle password visibility
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prev) => !prev);
-  };
 
   // Function to handle numeric input
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,31 +45,12 @@ const TextInput: React.FC<ITextInput> = ({
           onChange={handleChange} // Use the custom handleChange function
           inputMode={inputMode ? inputMode : ""} // Use numeric input mode if numeric field
           // pattern={isNumericField ? "[0-9s]{13,19}" : undefined} // Set pattern for numeric fields (e.g., credit card)
-          maxLength={maxLength ? maxLength : 19} // Limit the length for numeric input
+          maxLength={maxLength ? maxLength : 100} // Limit the length for numeric input
         />
         {error && isPasswordField ? (
           <div className="error-txt">{error}</div>
         ) : (
           <></>
-        )}
-        {isPasswordField && (
-          <div className="input-group-append">
-            <div className="">
-              <input
-                type="checkbox"
-                id="show-password"
-                checked={isPasswordVisible}
-                onChange={togglePasswordVisibility}
-                style={{
-                  width: "0.8rem",
-                  height: "0.8rem",
-                  marginRight: "0.5rem",
-                }} // Inline styles for size
-              />
-
-              <span style={{ fontSize: "0.875rem" }}>Show Password</span>
-            </div>
-          </div>
         )}
       </div>
       {error && !isPasswordField ? (

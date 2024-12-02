@@ -16,15 +16,9 @@ export const postRequest = async (
   endpoint: string,
   data: any
 ): Promise<any> => {
-  try {
-    const response = await axiosInstance.post(endpoint, data);
-    return response; // Return the full response for more details if needed
-  } catch (error) {
-    console.error("Error posting data:", error);
-    throw error;
-  }
+  const response = await axiosInstance.post(endpoint, data);
+  return response; // Return the full response for more details if needed
 };
-
 // Function to handle PUT requests
 export const putRequest = async (endpoint: string, data: any): Promise<any> => {
   try {

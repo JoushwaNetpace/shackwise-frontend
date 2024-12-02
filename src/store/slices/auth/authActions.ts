@@ -7,6 +7,8 @@ import {
   FORGOT_PASSWORD,
   CHANGE_PASSWORD,
   RESET_PASSWORD,
+  VERIFY_EMAIL,
+  LOGOUT,
 } from "../../types/actionTypes";
 import {
   IAuthResponse,
@@ -15,13 +17,16 @@ import {
   RegisterPayload,
 } from "./authTypes";
 import { ENDPOINTS } from "../../../constants/constants";
-
-// Async thunk for login
 export const login = createAsyncThunk<IAuthResponse, LoginPayload>(
   LOGIN,
   async (payload) => {
-    const response = await postRequest(ENDPOINTS.LOGIN, payload);
-    return response.data;
+    try {
+      const response = await postRequest(ENDPOINTS.LOGIN, payload);
+      return response;
+    } catch (error: any) {
+      // Directly throw the error
+      throw new Error(error.response?.data?.message || "Login failed");
+    }
   }
 );
 
@@ -29,10 +34,26 @@ export const login = createAsyncThunk<IAuthResponse, LoginPayload>(
 export const register = createAsyncThunk<IAuthResponse, RegisterPayload>(
   REGISTER,
   async (payload) => {
-    const response = await postRequest(ENDPOINTS.REGISTER, payload);
-    return response.data;
+    try {
+      const response = await postRequest(ENDPOINTS.REGISTER, payload);
+      return response;
+    } catch (error: any) {
+      // Directly throw the error
+      throw new Error(error.response?.data?.message || "Register failed");
+    }
   }
 );
+// Async thunk for logout
+// Async thunk for logout
+export const logout = createAsyncThunk(LOGOUT, async () => {
+  try {
+    // Send a request to logout
+    await postRequest(ENDPOINTS.LOGOUT, {}); // Adjust with the correct API endpoint and method
+  } catch (error: any) {
+    // Directly throw the error
+    throw new Error(error.response?.data?.message || "Logout failed");
+  }
+});
 
 // Async thunk for forgot password
 export const forgotPassword = createAsyncThunk<string, { email: string }>(
@@ -58,5 +79,13 @@ export const resetPassword = createAsyncThunk<string, PasswordPayload>(
   async (payload) => {
     const response = await postRequest(ENDPOINTS.RESET_PASSWORD, payload);
     return response.data.message;
+  }
+);
+// Async thunk for verify email
+export const verifyEmailAction = createAsyncThunk<string, { token: string }>(
+  VERIFY_EMAIL,
+  async (payload) => {
+    const response = await postRequest(ENDPOINTS.VERIFY_EMAIL, payload);
+    return response;
   }
 );

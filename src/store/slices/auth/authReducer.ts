@@ -5,6 +5,7 @@ import {
   forgotPassword,
   changePassword,
   resetPassword,
+  logout,
 } from "./authActions";
 import { AuthState } from "../../types/stateTypes";
 
@@ -20,10 +21,10 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    logout: (state) => {
-      state.user = null;
-      state.token = null;
-    },
+    // logout: (state) => {
+    //   state.user = null;
+    //   state.token = null;
+    // },
     clearMessages: (state) => {
       state.error = null;
       state.successMessage = null;
@@ -38,12 +39,26 @@ const authSlice = createSlice({
       })
       .addCase(login.fulfilled, (state, action) => {
         state.loading = false;
-        state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.data.token;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to login";
+      });
+    // logout
+    builder
+      // Handling the logout async thunk
+      .addCase(logout.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(logout.fulfilled, (state) => {
+        state.loading = false;
+        state.user = null;
+        state.token = null;
+      })
+      .addCase(logout.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Logout failed";
       });
 
     // Register
@@ -55,7 +70,7 @@ const authSlice = createSlice({
       .addCase(register.fulfilled, (state, action) => {
         state.loading = false;
         state.user = action.payload.user;
-        state.token = action.payload.token;
+        state.token = action.payload.data.token;
       })
       .addCase(register.rejected, (state, action) => {
         state.loading = false;
@@ -114,4 +129,4 @@ const authSlice = createSlice({
 export default authSlice.reducer;
 
 // Export actions
-export const { logout, clearMessages } = authSlice.actions;
+export const { clearMessages } = authSlice.actions;

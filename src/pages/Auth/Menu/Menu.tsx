@@ -27,7 +27,7 @@ const Menu: React.FC = () => {
                 </div>
 
                 <div className="menu-btns-wrap col-lg-8">
-                  <Link to="/set-priorities" className="btn-round">
+                  <Link to="/menu/set-priorities" className="btn-round">
                     Set My Priorities
                   </Link>
                   <Link
@@ -40,7 +40,7 @@ const Menu: React.FC = () => {
                   <Link to="/home/search-property" className="btn-round ">
                     Rate a Home
                   </Link>
-                  <Link to="#" className="btn-round ">
+                  <Link to="/home/leaderboard" className="btn-round ">
                     View the Leaderboard
                   </Link>
                   {/* Button to open the modal */}

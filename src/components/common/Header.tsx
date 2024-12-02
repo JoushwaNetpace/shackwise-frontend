@@ -7,8 +7,15 @@ import {
 } from "../../config/Images";
 import useClickOutside from "../../hooks/useClickOutside";
 import { Link } from "react-router-dom";
-
+import { useDispatch } from "react-redux";
+import { logout } from "../../store/slices/auth/authActions";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../store/slices/user/userSelectors";
 export const Header: React.FC = () => {
+  const dispatch = useDispatch();
+  const userData = useSelector(selectUser);
+
+  console.log("userData header>>", userData);
   // State to track dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -39,6 +46,10 @@ export const Header: React.FC = () => {
     setShowDropdown((prevState) => !prevState);
   };
 
+  const handleLogout = () => {
+    // Dispatch the logout action
+    dispatch(logout());
+  };
   useEffect(() => {
     const handleEvent = (event: MouseEvent) => {
       if (
@@ -61,10 +72,9 @@ export const Header: React.FC = () => {
     <>
       {/* <!-- Pushy Menu Mobile--> */}
       <nav
-        className={`pushy    pushy-left 
-          ${showPushyNavMenu ? "pushy-open-left" : "pushy-left"}
-        
-        `}
+        className={`pushy  ${
+          showPushyNavMenu ? "pushy-open-left" : "pushy-left"
+        } `}
         data-focus="#first-link"
         ref={mobileNavRef}
       >
@@ -136,7 +146,9 @@ export const Header: React.FC = () => {
             </div>
 
             <div className="header-logo">
-              <img src={ShackwiseLogo} className="logo" />
+              <Link to="/home">
+                <img src={ShackwiseLogo} className="logo" />
+              </Link>
             </div>
 
             <div className="top-menu header-menu">
@@ -175,9 +187,14 @@ export const Header: React.FC = () => {
             <div className="header-icons">
               <div className="d-flex align-items-center">
                 <div className="username-box mr-2">
-                  <div className="username">Hi Daniel</div>
+                  <div className="username">
+                    Hi {userData ? userData?.name : "User"}
+                  </div>
                 </div>
-                <div className="user-profile">JD</div>
+
+                <div className="user-profile" onClick={handleLogout}>
+                  JD
+                </div>
               </div>
 
               <div className="dropdown ml-2" ref={dropdownRef}>
