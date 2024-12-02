@@ -18,10 +18,10 @@ const ChooseRole: React.FC = () => {
               </div>
 
               <div className="choose-role-btns-wrap">
-                <Link to="/register/USER_AGENT" className="btn-round">
+                <Link to="/register/HOME_AGENT" className="btn-round">
                   I am an Agent
                 </Link>
-                <Link to="/register/USER_BUYER" className="btn-round">
+                <Link to="/register/HOME_BUYER" className="btn-round">
                   I am a Home Buyer
                 </Link>
               </div>

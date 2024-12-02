@@ -26,6 +26,7 @@ const userSlice = createSlice({
         state.error = null;
       })
       .addCase(fetchUser.fulfilled, (state, action) => {
+        // console.log("fetch user filled>>", action.payload);
         state.loading = false;
         state.user = action.payload; // Update the user state with the fetched user data
       })
