@@ -18,28 +18,11 @@ const SetPriorities: React.FC = () => {
             </div>
             <div className="login-form col-lg-10 col-sm-12 mt-2 d-flex  flex-column">
               {/* <!-- rating silder html --> */}
-              {/* <div className="proirties-option-box">
-                <h4>Affordability</h4>
 
-                <div>
-                  <img src={RatingSliderIcon} width="100%" alt="" />
-                </div>
-
-                <div className="add-note-wrap mt-4">
-                  <input
-                    type="text"
-                    name="add-noted"
-                    className="note-input"
-                    placeholder="What is your price range? How imperative is it that a given home is listed at or below that range?"
-                    id=""
-                  />
-             
-                </div>
-              </div> */}
               {priortiesList.map((pLItem) => (
                 <PriorityOption
                   label={pLItem.label}
-                  placeHolderText={pLItem.placeHolder}
+                  placeHolder={pLItem.placeHolder}
                 />
               ))}
 

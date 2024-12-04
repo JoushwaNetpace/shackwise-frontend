@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CloseModalIcon, ShackwiseLogo } from "../../../config/Images";
 import { Link } from "react-router-dom";
+import Modal from "../../../components/common/Modal";
 
 const Menu: React.FC = () => {
   // State to manage the visibility of the modal
@@ -10,6 +11,43 @@ const Menu: React.FC = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
+
+  const howItWorksModalRef = useRef(null);
+
+  // const { handleEvent } = useClickOutside(
+  //   howItWorksModalRef,
+  //   (isOutside, event) => {
+  //     if (!isOutside) {
+  //       setisHowSWorksModalOpen(false); // Close dropdown when click outside
+  //     }
+  //   }
+  // );
+  // const { handleEvent: handleEventInvite } = useClickOutside(
+  //   InviteModalRef,
+  //   (isOutside, event) => {
+  //     if (!isOutside) {
+  //       setIsModalOpen(false); // Close dropdown when click outside
+  //     }
+  //   }
+  // );
+
+  useEffect(() => {
+    const handleEvent = (event: MouseEvent) => {
+      if (
+        howItWorksModalRef.current &&
+        !howItWorksModalRef.current.contains(event.target as Node)
+      ) {
+        setisHowSWorksModalOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleEvent);
+
+    // Clean up the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("mousedown", handleEvent);
+    };
+  }, []);
 
   return (
     <>
@@ -57,8 +95,8 @@ const Menu: React.FC = () => {
       </div>
 
       {/* Conditional rendering of the invite connect overlay modal */}
-      {isModalOpen && (
-        <div className="overlay">
+      {/* {isModalOpen && (
+        <div className="overlay" ref={InviteModalRef}>
           <div
             className="modal-wrap col-lg-4 col-sm-10"
             style={{ height: "auto", borderRadius: "10px" }}
@@ -112,12 +150,49 @@ const Menu: React.FC = () => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
+
+      <Modal
+        headerText={"Connect with Partner / Agent"}
+        isOpen={isModalOpen}
+        setOpen={setIsModalOpen}
+      >
+        <div className="login mt-0">
+          <div className="login-form mt-0">
+            <h3>
+              Full Name <span>*</span>
+            </h3>
+            <input type="text" placeholder="Username" />
+            <br />
+
+            <h3>
+              Email address <span>*</span>
+            </h3>
+            <input type="text" placeholder="Email" />
+            <br />
+            <div className="d-flex justify-content-between align-items-center forgot-wrap">
+              <h3>Select</h3>
+            </div>
+            <select name="" id="" className="customSelect">
+              <option value="">Select item</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+              <option value="4">Option 4</option>
+            </select>
+
+            <br />
+            <div className="text-center mt-5">
+              <input type="button" value="Submit" className="login-button" />
+            </div>
+          </div>
+        </div>
+      </Modal>
 
       {/* Conditional rendering of the how shackwise work overlay modal */}
 
       {isHowSWorksModalOpen && (
-        <div className="overlay">
+        <div className="overlay" ref={howItWorksModalRef}>
           <div className="modal-wrap">
             <button
               aria-label="Close"

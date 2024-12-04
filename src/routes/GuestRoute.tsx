@@ -8,7 +8,7 @@ const GuestRoute = ({ children }: { children: React.ReactNode }) => {
 
   if (authToken) {
     // Redirect to home if user is already authenticated
-    return <Navigate to="/home" replace />;
+    return <Navigate to="/menu" replace />;
   }
 
   // Render the children if not authenticated

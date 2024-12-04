@@ -1,7 +1,9 @@
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
 import { router } from "./routes/Router";
-// import "./assets/styles/index.scss";
+
+import "./assets/styles/index.scss";
+// import "./assets/styles/_main.scss";
 import "./assets/css/bootstrap.css";
 // Bootstrap CSS
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -12,7 +14,6 @@ function App() {
   return (
     <>
       <Toaster />
-
       <RouterProvider router={router} />
     </>
   );

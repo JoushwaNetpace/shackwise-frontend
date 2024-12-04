@@ -15,7 +15,6 @@ export const Header: React.FC = () => {
   const dispatch = useDispatch();
   const userData = useSelector(selectUser);
 
-  console.log("userData header>>", userData);
   // State to track dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -95,13 +94,13 @@ export const Header: React.FC = () => {
             </li>
 
             <li className="pushy-link">
-              <Link to="#">
+              <Link to="/home/search-property">
                 <div className="menu-img devices-icon"></div>
                 <div>Rate home</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link to="/home/priorites">
                 <div className="menu-img users-icon"></div>
                 <div>Priorities</div>
               </Link>
@@ -161,11 +160,11 @@ export const Header: React.FC = () => {
                 </li>
                 <li>
                   <div className="menu-img devices-icon"></div>
-                  <Link to="#">Rate home</Link>
+                  <Link to="/home/search-property">Rate home</Link>
                 </li>
                 <li>
                   <div className="menu-img users-icon"></div>
-                  <Link to="#">priorities</Link>
+                  <Link to="/home/priorites">priorities</Link>
                 </li>
                 <li>
                   <div className="menu-img policy-icon"></div>
@@ -275,6 +274,15 @@ export const Header: React.FC = () => {
             </button>
           </header>
         </div>
+        {/*  Share and compare mode section */}
+        {/* <div className="main-container">
+          <div className="announcement-wrap">
+            Share mode with Rony
+            <div className="userpic-wrap ">
+              <img src={UserPic} alt="" />
+            </div>
+          </div>
+        </div> */}
       </div>
     </>
   );

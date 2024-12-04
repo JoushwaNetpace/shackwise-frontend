@@ -8,6 +8,7 @@ import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
 import NotFound from "../components/common/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute"; // Import GuestRoute component
+import { HomePriority } from "../pages/Home/HomePriority/HomePriority";
 
 // Lazy load the components
 const ChooseRole = lazy(() => import("../pages/Auth/ChooseRole/ChooseRole"));
@@ -173,6 +174,16 @@ export const router = createBrowserRouter([
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
               <RateProperty />
+            </Suspense>
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: "priorites",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <HomePriority />
             </Suspense>
           </ErrorBoundary>
         ),
