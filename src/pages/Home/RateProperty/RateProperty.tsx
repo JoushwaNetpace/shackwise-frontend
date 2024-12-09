@@ -26,8 +26,10 @@ const RateProperty: React.FC = () => {
 
         <div className="col-lg-8 col-sm-12 m-auto mt-5">
           <div className="text-center mt-4">
-            <h1>Ratings</h1>
-            <h3>How does each characteristic in this house rate?</h3>
+            <h1 className="text-center">Ratings</h1>
+            <h3 className="text-center">
+              How does each characteristic in this house rate?
+            </h3>
           </div>
           {priortiesList.map((pLItem, index) => (
             <PriorityOption

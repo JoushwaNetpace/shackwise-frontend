@@ -1,6 +1,8 @@
 export interface IPriorityOption {
   label: string;
   placeHolder: string;
+  name?: string;
+  mode?: "priority" | "rate"; // Union of string literals
 }
 
 export interface typeErrorResponse {
@@ -17,6 +19,15 @@ export interface IProperty {
   sqft_area: number;
   description: string;
   images: string[];
+}
+
+export interface IPropertyRating {
+  percentage: 0 | 25 | 50 | 75 | 100;
+  userPic: string;
+  title?: string;
+}
+export interface ProgressBarItemProps extends IPropertyRating {
+  // Add any additional props specific to ProgressBarItem here if needed
 }
 export interface IPropertyDetail {
   price: string;

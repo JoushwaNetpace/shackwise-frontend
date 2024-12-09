@@ -18,6 +18,9 @@ const Menu = lazy(() => import("../pages/Auth/Menu/Menu"));
 const SearchProperty = lazy(
   () => import("../pages/Home/SearchProperty/SearchProperty")
 );
+const PropertyDetail = lazy(
+  () => import("../pages/Home/PropertyDetail/PropertyDetail")
+);
 const RateProperty = lazy(
   () => import("../pages/Home/RateProperty/RateProperty")
 );
@@ -194,6 +197,16 @@ export const router = createBrowserRouter([
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
               <LeaderBoard />
+            </Suspense>
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: "property-detail",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <PropertyDetail />
             </Suspense>
           </ErrorBoundary>
         ),

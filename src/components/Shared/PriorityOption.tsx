@@ -1,26 +1,104 @@
-import { RatingSliderIcon } from "../../config/Images";
+import { UserPic } from "../../config/Images";
 import { IPriorityOption } from "../../types/types";
+import type { SliderSingleProps } from "antd";
+import { Slider } from "antd";
 
-const PriorityOption: React.FC<IPriorityOption> = ({ label, placeHolder }) => {
+const marks: SliderSingleProps["marks"] = {
+  0: {
+    style: {
+      color: "#666",
+      fontSize: "12px",
+      transform: "translateX(0)", // Align at the start
+    },
+    label: "Not at All",
+  },
+  25: {
+    style: {
+      color: "white",
+      fontSize: "12px",
+      textAlign: "center",
+    },
+    label: "Somewhat",
+  },
+  50: {
+    style: {
+      color: "#666",
+      fontSize: "12px",
+      textAlign: "center",
+    },
+    label: "Somewhat",
+  },
+  75: {
+    style: {
+      color: "white",
+      fontSize: "12px",
+      textAlign: "center",
+    },
+    label: "Somewhat",
+  },
+  100: {
+    style: {
+      color: "#666",
+      fontSize: "12px",
+      transform: "translateX(-100%)", // Align at the end
+    },
+    label: "Extremely",
+  },
+};
+
+const PriorityOption: React.FC<
+  IPriorityOption & {
+    onRatingChange: (value: number) => void;
+    onNoteChange: (value: string) => void;
+    value?: number;
+  }
+> = ({
+  label,
+  placeHolder,
+  mode,
+  name,
+  onRatingChange,
+  onNoteChange,
+  value,
+}) => {
+  // console.log("value of priortiy option >>>", value);
   return (
-    <div className="proirties-option-box">
+    <div className="proirties-option-box ">
       <h4>{label}</h4>
 
-      <div>
-        <img src={RatingSliderIcon} width="100%" alt="" />
+      <div className="">
+        <div className="container">
+          <div className="row justify-content-center">
+            <div className="col-12 col-sm-10 col-md-12 px-0">
+              <Slider
+                onChange={onRatingChange}
+                controlSize={4}
+                marks={marks}
+                step={25} // Ensures snapping to each of the five positions
+                defaultValue={value ? value : 0}
+                tooltip={{ open: false }}
+                trackStyle={{ backgroundColor: "#4a90e2" }}
+                handleStyle={{ borderColor: "black" }}
+                railStyle={{ backgroundColor: "#d3d3d3" }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="add-note-wrap mt-4">
+      <div className="add-note-wrap mt-2">
+        {mode == "rate" && (
+          <div className="userpic-wrap ">
+            <img src={UserPic} alt="" />
+          </div>
+        )}
         <input
           type="text"
-          name="add-noted"
+          name={name}
           className="note-input"
           placeholder={placeHolder}
-          id=""
+          onChange={(e) => onNoteChange(e.target.value)}
         />
-        {/* <button className="add-note-btn ">
-            Add Note <img src={DownArrowIcon} alt="" className="ml-1" />
-          </button> */}
       </div>
     </div>
   );

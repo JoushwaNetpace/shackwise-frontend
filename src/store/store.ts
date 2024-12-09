@@ -3,11 +3,13 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Default storage (localStorage for web)
 import userReducer from "./slices/user/userReducer";
 import authReducer from "./slices/auth/authReducer";
+import priorityReducer from "./slices/priority/priorityReducer";
 
 // Combine reducers
 const rootReducer = combineReducers({
   user: userReducer,
   auth: authReducer,
+  priority: priorityReducer,
   // Add other reducers here as needed
 });
 

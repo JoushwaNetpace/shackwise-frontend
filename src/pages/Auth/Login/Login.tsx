@@ -10,10 +10,12 @@ import TextInput from "../../../components/Shared/TextInput"; // Reuse the TextI
 import { AppDispatch } from "../../../store/store";
 import { storeTokenInCookie } from "../../../utils/CookieUtils";
 import { fetchUser } from "../../../store/slices/user/userActions";
+import { getUserPriority } from "../../../store/slices/priority/priorityActions";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -28,6 +30,7 @@ const Login: React.FC = () => {
         await storeTokenInCookie(response.data.token);
 
         await dispatch(fetchUser()).unwrap();
+        await dispatch(getUserPriority()).unwrap();
       }
     } catch (error: any) {
       console.log("error login screen??", error.message || error);

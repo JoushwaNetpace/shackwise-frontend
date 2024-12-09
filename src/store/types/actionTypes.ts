@@ -10,3 +10,9 @@ export const LOGOUT = "auth/logout";
 export const FETCH_USER = "user/fetchUser";
 
 // Add more action types as needed
+
+//PRIORITY
+
+export const CREATE_PRIORITY = "priority/createUserPriority";
+export const UPDATE_USER_PRIORITY = "priority/updateUserPriority";
+export const GET_USER_PRIORITY = "priority/getUserPriority";

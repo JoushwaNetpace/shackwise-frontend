@@ -17336,7 +17336,7 @@ input:focus-visible {
 }
 
 .proirties-option-box {
-  margin: 1.5rem 0rem !important;
+  margin: 1rem 0rem !important;
 }
 
 .compare-option-box-wrap h4,
@@ -17371,7 +17371,7 @@ input:focus-visible {
   padding: 4px;
   position: relative;
   z-index: 0;
-  max-width: 500px;
+  /* max-width: 500px; */
   display: flex;
 }
 .s-toggle-pill-wrapper .s-toggle-selector {

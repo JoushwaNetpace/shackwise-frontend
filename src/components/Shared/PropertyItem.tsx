@@ -8,6 +8,7 @@ import {
   StarIcon,
 } from "../../config/Images";
 import { IPropertyDetail } from "../../types/types";
+import { useNavigate } from "react-router-dom";
 
 const PropertyItem: React.FC<IPropertyDetail> = ({
   price,
@@ -20,8 +21,13 @@ const PropertyItem: React.FC<IPropertyDetail> = ({
   imageUrl,
   compareMode = false,
 }) => {
+  const navigate = useNavigate();
+
   return (
-    <div className="p-0 list-box-item position-relative">
+    <div
+      className="p-0 list-box-item position-relative"
+      onClick={() => navigate("/home/property-detail")}
+    >
       <div className="d-flex list-box-wrap list-box-column">
         <div className="img-box position-relative">
           <img src={imageUrl} className="img-fluid" alt="Property" />

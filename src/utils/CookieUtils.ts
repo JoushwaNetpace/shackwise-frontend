@@ -12,3 +12,11 @@ export const storeTokenInCookie = (token: string) => {
 export const getTokenFromCookie = () => {
   return Cookies.get("authToken"); // Returns the token stored in the cookie, or undefined if not found
 };
+
+// Function to remove the token from the cookie
+export const removeTokenFromCookie = () => {
+  Cookies.remove("authToken", {
+    secure: process.env.NODE_ENV === "production", // Use secure cookies in production
+    sameSite: "Strict", // Matches the sameSite policy used when setting the cookie
+  });
+};
