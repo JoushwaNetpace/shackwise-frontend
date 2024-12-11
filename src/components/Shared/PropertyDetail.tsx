@@ -7,6 +7,7 @@ import {
   SqftIcon,
 } from "../../config/Images";
 import { IPropertyDetail } from "../../types/types";
+import { formatPrice } from "../../utils/commonUtils";
 
 const PropertyDetail: React.FC<IPropertyDetail> = ({
   price,
@@ -28,7 +29,7 @@ const PropertyDetail: React.FC<IPropertyDetail> = ({
           <div className="">
             <div className="card-body">
               <div className="rate-rating-wrap">
-                <h3 className="mt-2">{price}</h3>
+                <h3 className="mt-2">{formatPrice(price)}</h3>
                 <div className="home-details-wrap">
                   <div>
                     <img src={BedIcon} alt="Bed Icon" /> {bedrooms}

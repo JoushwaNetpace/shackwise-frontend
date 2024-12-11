@@ -8,12 +8,17 @@ import toast from "react-hot-toast";
 import { loginValidationSchema } from "../../../constants/formValidationSchemas"; // Define a schema for login validation
 import TextInput from "../../../components/Shared/TextInput"; // Reuse the TextInput component
 import { AppDispatch } from "../../../store/store";
-import { storeTokenInCookie } from "../../../utils/CookieUtils";
+import {
+  removeTokenFromCookie,
+  storeTokenInCookie,
+} from "../../../utils/CookieUtils";
 import { fetchUser } from "../../../store/slices/user/userActions";
+import { getUserPriority } from "../../../store/slices/priority/priorityActions";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+
   // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
@@ -25,9 +30,12 @@ const Login: React.FC = () => {
       // return;
       if (response.success) {
         toast.success(response.message);
-        await storeTokenInCookie(response.data.token);
+        // store the token in cookies
+        await removeTokenFromCookie();
+        await storeTokenInCookie(response.data.token.authToken);
 
         await dispatch(fetchUser()).unwrap();
+        await dispatch(getUserPriority()).unwrap();
       }
     } catch (error: any) {
       console.log("error login screen??", error.message || error);

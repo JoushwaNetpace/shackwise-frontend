@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "realestateapi",
+      "source": "@realestateapi/v1.0#19rv1e7zm4ddq13s",
+      "integrity": "sha512-t7/nHrTOsfhlU0e/fe+js5eOpaQy12j9HAuSDWlix2kNR2Ln2gkSUnJ6oyPWjxvGUkhYTIwPfiYh880mnH9gBA==",
+      "installerVersion": "6.1.2"
+    }
+  ]
+}

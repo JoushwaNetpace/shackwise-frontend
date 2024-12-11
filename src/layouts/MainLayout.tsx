@@ -23,7 +23,7 @@ export const MainLayout: React.FC = () => {
   return (
     <div className="body-inner">
       <Header />
-      <div className="container-fluid main-wrapper p-0">
+      <div className="container-fluid main-wrapper p-0 h-100">
         {/* Render the routed child components here */}
         <Outlet />
 

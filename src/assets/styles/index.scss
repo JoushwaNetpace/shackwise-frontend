@@ -1,50 +1,57 @@
-// Importing all SCSS files
+// Core Variables, Functions, and Mixins (Base Configuration)
+@use "variables" as *;
+@use "variables-theme" as *;
+@use "mixins" as *;
+@use "functions" as *;
 
-// @import "utilities";
-@import "variables-theme";
-@import "variables";
-@import "alert";
-@import "badge";
-@import "breadcrumb";
-@import "button-group";
-@import "buttons";
-@import "card";
-@import "carousel";
-@import "close";
-@import "code";
-@import "custom-forms";
-@import "dropdown";
-@import "fahad-responsive";
-@import "fahad";
-@import "fix";
-@import "font";
-@import "forms";
-@import "functions";
-@import "grid";
-@import "images";
-@import "input-group";
-@import "jumbotron";
-@import "job-groups";
-@import "main";
-@import "media";
-@import "mixins";
-@import "modals";
-@import "nav";
-@import "navbar";
-@import "pagination";
-@import "popover";
-@import "print";
-@import "progress";
-@import "reboot";
-@import "root";
-@import "spinners";
-@import "tables";
-@import "toast";
-@import "tooltips";
-@import "type";
+// Core Components (Reset and Base Styles)
+@use "reboot" as *; // Basic resets
+@use "root" as *; // Root-level customizations, if needed
+@use "grid" as *; // Grid system
+@use "font" as *; // Font settings
+@use "base" as *; // Base styles like body, headings, etc.
 
-// Additional Bootstrap and base files if needed
-@import "base";
-@import "bootstrap-grid";
-@import "bootstrap-reboot";
-@import "bootstrap";
+// Components (Alphabetical for Consistency)
+@use "alert" as *;
+@use "badge" as *;
+@use "breadcrumb" as *;
+@use "button-group" as *;
+@use "buttons" as *;
+@use "card" as *;
+@use "carousel" as *;
+@use "close" as *;
+@use "code" as *;
+@use "custom-forms" as *;
+@use "dropdown" as *;
+@use "forms" as *;
+@use "input-group" as *;
+@use "images" as *;
+@use "jumbotron" as *;
+@use "media" as *;
+@use "modals" as *;
+@use "nav" as *;
+@use "navbar" as *;
+@use "pagination" as *;
+@use "popover" as *;
+@use "progress" as *;
+@use "spinners" as *;
+@use "tables" as *;
+@use "toast" as *;
+@use "tooltips" as *;
+@use "type" as *;
+
+// Custom Components or Overrides
+@use "fahad" as *; // Custom styles (ensure it doesn't conflict with core components)
+@use "fahad-responsive" as *; // Responsive custom styles, should come after `fahad`
+@use "fix" as *; // Fixes and tweaks
+@use "job-groups" as *; // Job-related custom styles
+@use "main" as *; // Main styling overrides
+
+// Utilities
+@use "utilities" as *; // Utility classes for margins, paddings, etc.
+@use "print" as *; // Print styles (optional)
+
+// Bootstrap Overrides or Additions (Optional)
+@use "bootstrap-grid" as *; // Bootstrap grid-specific overrides
+@use "bootstrap-reboot" as *; // Bootstrap reboot-specific overrides
+@use "bootstrap" as *; // Bootstrap framework styles

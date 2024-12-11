@@ -9,6 +9,16 @@ export const ENDPOINTS = {
   FORGOT_PASSWORD: "/auth/forgot-password",
   GET_USER_DETAIL: "/auth/user",
   LOGOUT: "/auth/logout",
+
+  // PRIORITY
+  CREATE_PRIORITY: "/priority",
+  GET_USER_PRIORITY: "/priority/user-priority",
+  UPDATE_USER_PRIORITY: "/priority/",
+};
+export const REAPI_ENDPOINTS = {
+  AUTOCOMPLETE: "/AutoComplete",
+  PROPERTY_SEARCH: "/PropertySearch",
+  PROPERTY_DETAIL: "/PropertyDetail",
 };
 
 export const ROLE_ENUM = {

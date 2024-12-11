@@ -12,6 +12,7 @@ import { AuthState } from "../../types/stateTypes";
 const initialState: AuthState = {
   user: null,
   token: null,
+  refreshToken: null,
   loading: false,
   error: null,
   successMessage: null,
@@ -37,9 +38,10 @@ const authSlice = createSlice({
         state.loading = true;
         state.error = null;
       })
-      .addCase(login.fulfilled, (state, action) => {
+      .addCase(login.fulfilled, (state, action: any) => {
         state.loading = false;
-        state.token = action.payload.data.token;
+        state.token = action.payload.data.token.authToken;
+        state.refreshToken = action.payload.data.token.refreshToken;
       })
       .addCase(login.rejected, (state, action) => {
         state.loading = false;

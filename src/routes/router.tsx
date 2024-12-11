@@ -8,6 +8,7 @@ import VerifyEmail from "../pages/Auth/VerifyEmail/VerifyEmail";
 import NotFound from "../components/common/NotFound";
 import ProtectedRoute from "./ProtectedRoute";
 import GuestRoute from "./GuestRoute"; // Import GuestRoute component
+import { HomePriority } from "../pages/Home/HomePriority/HomePriority";
 
 // Lazy load the components
 const ChooseRole = lazy(() => import("../pages/Auth/ChooseRole/ChooseRole"));
@@ -16,6 +17,9 @@ const Login = lazy(() => import("../pages/Auth/Login/Login"));
 const Menu = lazy(() => import("../pages/Auth/Menu/Menu"));
 const SearchProperty = lazy(
   () => import("../pages/Home/SearchProperty/SearchProperty")
+);
+const PropertyDetail = lazy(
+  () => import("../pages/Home/PropertyDetail/PropertyDetail")
 );
 const RateProperty = lazy(
   () => import("../pages/Home/RateProperty/RateProperty")
@@ -168,11 +172,21 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "rate-property",
+        path: "rate-property/:propertyId",
         element: (
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
               <RateProperty />
+            </Suspense>
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: "priorites",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <HomePriority />
             </Suspense>
           </ErrorBoundary>
         ),
@@ -183,6 +197,16 @@ export const router = createBrowserRouter([
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
               <LeaderBoard />
+            </Suspense>
+          </ErrorBoundary>
+        ),
+      },
+      {
+        path: "property-detail/:propertyId",
+        element: (
+          <ErrorBoundary>
+            <Suspense fallback={<LoadingPage />}>
+              <PropertyDetail />
             </Suspense>
           </ErrorBoundary>
         ),

@@ -10,12 +10,23 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/auth/authActions";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../store/slices/user/userSelectors";
+import {
+  selectAcceptInvite,
+  selectUser,
+} from "../../store/slices/user/userSelectors";
+import { removeTokenFromCookie } from "../../utils/CookieUtils";
+import {
+  changeHowItWorksModalAction,
+  changeInviteConnectModalAction,
+  changeShareCompareModalAction,
+} from "../../store/slices/modal/modalActions";
+import { setAcceptInvite } from "../../store/slices/user/userActions";
+
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
   const userData = useSelector(selectUser);
+  const acceptInvite = useSelector(selectAcceptInvite);
 
-  console.log("userData header>>", userData);
   // State to track dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -48,6 +59,7 @@ export const Header: React.FC = () => {
 
   const handleLogout = () => {
     // Dispatch the logout action
+    removeTokenFromCookie();
     dispatch(logout());
   };
   useEffect(() => {
@@ -95,13 +107,13 @@ export const Header: React.FC = () => {
             </li>
 
             <li className="pushy-link">
-              <Link to="#">
+              <Link to="/home/search-property">
                 <div className="menu-img devices-icon"></div>
                 <div>Rate home</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link to="/home/priorites">
                 <div className="menu-img users-icon"></div>
                 <div>Priorities</div>
               </Link>
@@ -161,25 +173,43 @@ export const Header: React.FC = () => {
                 </li>
                 <li>
                   <div className="menu-img devices-icon"></div>
-                  <Link to="#">Rate home</Link>
+                  <Link to="/home/search-property">Rate home</Link>
                 </li>
                 <li>
                   <div className="menu-img users-icon"></div>
-                  <Link to="#">priorities</Link>
+                  <Link to="/home/priorites">priorities</Link>
                 </li>
                 <li>
                   <div className="menu-img policy-icon"></div>
-                  <Link to="#">invite/connect</Link>
+                  <Link
+                    to="#"
+                    onClick={() =>
+                      dispatch(changeInviteConnectModalAction(true))
+                    }
+                  >
+                    invite/connect
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img connectors-icon"></div>
-                  <Link to="#" className="">
+                  <Link
+                    to="#"
+                    className=""
+                    onClick={() =>
+                      dispatch(changeShareCompareModalAction(true))
+                    }
+                  >
                     share/compare
                   </Link>
                 </li>
                 <li>
                   <div className="menu-img reports-icon"></div>
-                  <Link to="#">how it works</Link>
+                  <Link
+                    to="#"
+                    onClick={() => dispatch(changeHowItWorksModalAction(true))}
+                  >
+                    how it works
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -247,7 +277,14 @@ export const Header: React.FC = () => {
                               </strong>
                             </div>
                             <div>
-                              <a href="" className="accept-text">
+                              <a
+                                href="#"
+                                className="accept-text"
+                                onClick={() => {
+                                  dispatch(setAcceptInvite(!acceptInvite));
+                                  handleDropdownToggle();
+                                }}
+                              >
                                 Accept
                               </a>
                             </div>
@@ -275,6 +312,17 @@ export const Header: React.FC = () => {
             </button>
           </header>
         </div>
+        {/*  Share and compare mode section */}
+        {acceptInvite && (
+          <div className="main-container">
+            <div className="announcement-wrap">
+              Share mode with Rony
+              <div className="userpic-wrap ">
+                <img src={UserPic} alt="" />
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );

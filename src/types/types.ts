@@ -1,6 +1,8 @@
 export interface IPriorityOption {
   label: string;
   placeHolder: string;
+  name?: string;
+  mode?: "priority" | "rate"; // Union of string literals
 }
 
 export interface typeErrorResponse {
@@ -10,7 +12,7 @@ export interface typeErrorResponse {
 }
 export interface IProperty {
   _id: string;
-  price: string;
+  price: number;
   address: string;
   bedrooms: number;
   bathrooms: number;
@@ -18,16 +20,27 @@ export interface IProperty {
   description: string;
   images: string[];
 }
+
+export interface IPropertyRating {
+  percentage: 0 | 25 | 50 | 75 | 100;
+  userPic: string;
+  title?: string;
+}
+export interface ProgressBarItemProps extends IPropertyRating {
+  // Add any additional props specific to ProgressBarItem here if needed
+}
 export interface IPropertyDetail {
-  price: string;
+  price: number;
   address: string;
+  id: string;
   bedrooms: number;
   bathrooms: number;
   cars: number;
   sqftArea: number;
-  description: string;
-  imageUrl: string;
+  description?: string;
+  imageUrl?: string;
   compareMode?: boolean;
+  isEditable?: boolean;
 }
 
 export const ROLE_ENUM = {
