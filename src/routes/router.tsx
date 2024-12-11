@@ -172,7 +172,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "rate-property",
+        path: "rate-property/:propertyId",
         element: (
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>
@@ -202,7 +202,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "property-detail",
+        path: "property-detail/:propertyId",
         element: (
           <ErrorBoundary>
             <Suspense fallback={<LoadingPage />}>

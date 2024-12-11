@@ -4,12 +4,16 @@ import storage from "redux-persist/lib/storage"; // Default storage (localStorag
 import userReducer from "./slices/user/userReducer";
 import authReducer from "./slices/auth/authReducer";
 import priorityReducer from "./slices/priority/priorityReducer";
+import propertyReducer from "./slices/property/propertyReducer";
+import modalReducer from "./slices/modal/modalReducer";
 
 // Combine reducers
 const rootReducer = combineReducers({
   user: userReducer,
   auth: authReducer,
   priority: priorityReducer,
+  property: propertyReducer,
+  modal: modalReducer,
   // Add other reducers here as needed
 });
 

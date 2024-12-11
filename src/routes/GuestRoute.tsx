@@ -5,7 +5,6 @@ import { selectAuthToken } from "../store/slices/auth/authSelectors";
 
 const GuestRoute = ({ children }: { children: React.ReactNode }) => {
   const authToken = useSelector(selectAuthToken);
-
   if (authToken) {
     // Redirect to home if user is already authenticated
     return <Navigate to="/menu" replace />;

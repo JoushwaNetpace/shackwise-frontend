@@ -17,6 +17,8 @@ export const ENDPOINTS = {
 };
 export const REAPI_ENDPOINTS = {
   AUTOCOMPLETE: "/AutoComplete",
+  PROPERTY_SEARCH: "/PropertySearch",
+  PROPERTY_DETAIL: "/PropertyDetail",
 };
 
 export const ROLE_ENUM = {

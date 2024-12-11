@@ -11,11 +11,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 // Bootstrap Bundle JS
 import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Toaster } from "react-hot-toast";
+import { ModalList } from "./components/common/ModalList";
 function App() {
   return (
     <>
       <Toaster />
       <RouterProvider router={router} />
+      <ModalList />
     </>
   );
 }

@@ -1,13 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import SearchBar from "../../../components/Shared/SearchBar";
 import { propertyDataList } from "../../../data/data";
 import PropertyItem from "../../../components/Shared/PropertyItem";
 
 const LeaderBoard: React.FC = () => {
+  const [searchText, setsearchText] = useState("");
   return (
     <div className="container">
       <div className="row m-0">
-        <SearchBar />
+        <SearchBar
+          searchText={searchText}
+          setSearchText={setsearchText}
+          onClick={() => {
+            console.log("leaderboardsearch>", searchText);
+          }}
+        />
 
         <div className="home-list-animate-row">
           {propertyDataList.map(
@@ -24,6 +31,7 @@ const LeaderBoard: React.FC = () => {
               index
             ) => (
               <PropertyItem
+                isEditable={true}
                 key={index}
                 price={price}
                 address={address}

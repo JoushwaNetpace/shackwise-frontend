@@ -25,6 +25,8 @@ const Modal: React.FC<ModalProps> = ({
 
     if (isOpen) {
       window.addEventListener("keydown", closeOnEscape);
+      // Focus the modal when it opens
+      modalRef.current?.focus();
     }
 
     return () => {
@@ -47,14 +49,15 @@ const Modal: React.FC<ModalProps> = ({
   return (
     <div className="overlay" onClick={handleOverlayClick}>
       <div
-        className="modal-wrap col-lg-4 col-sm-10"
+        className="modal-wrap"
         style={{ height: "auto", borderRadius: "10px" }}
         ref={modalRef}
+        tabIndex={-1} // Make the modal focusable
       >
         <button aria-label="Close" className="close-modal" onClick={closeModal}>
           <img src={CloseModalIcon} alt="Close" />
         </button>
-        <div className="modal-inner-window" style={{ height: "auto" }}>
+        <div className="modal-inner-window">
           <div className="modal-header justify-content-center">
             <h3>{headerText}</h3>
           </div>

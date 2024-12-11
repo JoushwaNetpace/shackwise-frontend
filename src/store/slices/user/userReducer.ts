@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "./userActions"; // Import the fetchUser action
+import { fetchUser, setAcceptInvite } from "./userActions"; // Import the fetchUser action
 import { UserState } from "../../types/stateTypes";
 
 // Initial state
 const initialState: UserState = {
   user: null,
   loading: false,
+  acceptInvite: false,
   error: null,
 };
 
@@ -33,6 +34,19 @@ const userSlice = createSlice({
       .addCase(fetchUser.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to fetch user";
+      });
+    builder
+      .addCase(setAcceptInvite.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(setAcceptInvite.fulfilled, (state, action) => {
+        state.loading = false;
+        state.acceptInvite = action.payload; // Update the user state with the fetched user data
+      })
+      .addCase(setAcceptInvite.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to set accept invite";
       });
   },
 });

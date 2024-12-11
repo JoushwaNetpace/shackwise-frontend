@@ -8,6 +8,7 @@ export const LOGOUT = "auth/logout";
 
 // USER ACTION TYPES
 export const FETCH_USER = "user/fetchUser";
+export const ACCEPT_INVITE = "user/acceptInvite";
 
 // Add more action types as needed
 
@@ -16,3 +17,12 @@ export const FETCH_USER = "user/fetchUser";
 export const CREATE_PRIORITY = "priority/createUserPriority";
 export const UPDATE_USER_PRIORITY = "priority/updateUserPriority";
 export const GET_USER_PRIORITY = "priority/getUserPriority";
+
+//SEARCH RE API PROPERTY
+export const SEARCH_PROPERTY_LIST = "property/searchPropertyList";
+export const GET_PROPERTY_DETAIL = "property/getPropertyDetail";
+
+// MODAL ACTION TYPES
+export const INVITE_CONNECT_MODAL = "modal/changeInviteConnectModal";
+export const SHARE_COMPARE_MODAL = "modal/changeShareCompareModal";
+export const HOW_IT_WORKS_MODAL = "modal/changeHowItWorksModal";

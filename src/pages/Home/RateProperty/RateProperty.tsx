@@ -1,24 +1,53 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { priortiesList, propertyDataList } from "../../../data/data";
 import PriorityOption from "../../../components/Shared/PriorityOption";
 
 import PropertyDetail from "../../../components/Shared/PropertyDetail";
-import SearchBar from "../../../components/Shared/SearchBar";
+import { useParams } from "react-router-dom";
+import { AppDispatch } from "../../../store/store";
+import { useDispatch } from "react-redux";
+import { getPropertyDetail } from "../../../store/slices/property/propertyActions";
+import { GetPropertyDetailPayload } from "../../../store/types/stateTypes";
+// import SearchBar from "../../../components/Shared/SearchBar";
 
 const RateProperty: React.FC = () => {
+  const { propertyId } = useParams();
+  const dispatch = useDispatch<AppDispatch>();
+  const [propertyData, setpropertyData] = useState(null);
+  const handleGetPropertyDetail = async (id: string) => {
+    try {
+      const payload: GetPropertyDetailPayload = { id };
+
+      const response: any = await dispatch(getPropertyDetail(payload)).unwrap();
+
+      console.log("response>>>", response);
+      if (response.statusCode == 200) setpropertyData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    if (propertyId) {
+      handleGetPropertyDetail(propertyId);
+    }
+  }, []);
+  useEffect(() => {
+    if (propertyData) console.log("propertyData>>", propertyData);
+  }, [propertyData]);
+
   return (
     <div className="container">
-      <div className="row m-0">
+      <div className="row mt-5">
         {/*   search field wrap  */}
-        <SearchBar />
 
         {/*   imgs box wrap  */}
         <PropertyDetail
-          price={propertyDataList[0].price}
-          address={propertyDataList[0].address}
-          bedrooms={propertyDataList[0].bedrooms}
-          bathrooms={propertyDataList[0].bathrooms}
-          cars={1} // You can add a default car value or fetch it from the data if available
+          price={propertyData?.mlsListingPrice}
+          address={propertyData?.propertyInfo?.address?.label}
+          bedrooms={propertyData?.propertyInfo?.bedrooms}
+          bathrooms={propertyData?.propertyInfo?.bathrooms}
+          cars={propertyData?.propertyInfo?.parkingSpaces} // You can add a default car value or fetch it from the data if available
           sqftArea={propertyDataList[0].sqft_area}
           description={propertyDataList[0].description}
           imageUrl={propertyDataList[0].images[0]} // Assuming you want to display the first image

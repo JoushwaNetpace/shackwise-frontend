@@ -87,7 +87,7 @@ export const priortiesList: IPriorityOption[] = [
 export const propertyDataList: IProperty[] = [
   {
     _id: "1",
-    price: "1,350.00 USD",
+    price: 1350.0,
     address: "742 Evergreen Terrace, Springfield, IL 62704",
     bedrooms: 4,
     bathrooms: 3,
@@ -100,7 +100,7 @@ export const propertyDataList: IProperty[] = [
   },
   {
     _id: "2",
-    price: "950.00 USD",
+    price: 950.0,
     address: "221B Baker Street, London, NW1 6XE",
     bedrooms: 2,
     bathrooms: 1,
@@ -113,7 +113,7 @@ export const propertyDataList: IProperty[] = [
   },
   {
     _id: "3",
-    price: "2,250.00 USD",
+    price: 2250.0,
     address: "1600 Pennsylvania Ave NW, Washington, DC 20500",
     bedrooms: 5,
     bathrooms: 4,
@@ -126,7 +126,7 @@ export const propertyDataList: IProperty[] = [
   },
   {
     _id: "4",
-    price: "1,175.00 USD",
+    price: 1175.0,
     address: "10 Downing Street, London, SW1A 2AA",
     bedrooms: 3,
     bathrooms: 2,
@@ -138,6 +138,7 @@ export const propertyDataList: IProperty[] = [
     ],
   },
 ];
+
 export const propertyRatingList: IPropertyRating[] = [
   {
     percentage: getRandomPercentage(),

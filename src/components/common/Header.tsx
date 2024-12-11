@@ -10,16 +10,23 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/auth/authActions";
 import { useSelector } from "react-redux";
-import { selectUser } from "../../store/slices/user/userSelectors";
+import {
+  selectAcceptInvite,
+  selectUser,
+} from "../../store/slices/user/userSelectors";
 import { removeTokenFromCookie } from "../../utils/CookieUtils";
+import {
+  changeHowItWorksModalAction,
+  changeInviteConnectModalAction,
+  changeShareCompareModalAction,
+} from "../../store/slices/modal/modalActions";
+import { setAcceptInvite } from "../../store/slices/user/userActions";
 
-import Modal from "./Modal";
-import { ToggleSelector } from "../Shared/ToggleSelector";
 export const Header: React.FC = () => {
   const dispatch = useDispatch();
   const userData = useSelector(selectUser);
-  // console.log("header userData>>", userData);
-  const [isOpenShareCompModal, setisOpenShareCompModal] = useState(false);
+  const acceptInvite = useSelector(selectAcceptInvite);
+
   // State to track dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false);
 
@@ -174,21 +181,35 @@ export const Header: React.FC = () => {
                 </li>
                 <li>
                   <div className="menu-img policy-icon"></div>
-                  <Link to="#">invite/connect</Link>
+                  <Link
+                    to="#"
+                    onClick={() =>
+                      dispatch(changeInviteConnectModalAction(true))
+                    }
+                  >
+                    invite/connect
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img connectors-icon"></div>
                   <Link
                     to="#"
                     className=""
-                    onClick={() => setisOpenShareCompModal(true)}
+                    onClick={() =>
+                      dispatch(changeShareCompareModalAction(true))
+                    }
                   >
                     share/compare
                   </Link>
                 </li>
                 <li>
                   <div className="menu-img reports-icon"></div>
-                  <Link to="#">how it works</Link>
+                  <Link
+                    to="#"
+                    onClick={() => dispatch(changeHowItWorksModalAction(true))}
+                  >
+                    how it works
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -256,7 +277,14 @@ export const Header: React.FC = () => {
                               </strong>
                             </div>
                             <div>
-                              <a href="" className="accept-text">
+                              <a
+                                href="#"
+                                className="accept-text"
+                                onClick={() => {
+                                  dispatch(setAcceptInvite(!acceptInvite));
+                                  handleDropdownToggle();
+                                }}
+                              >
                                 Accept
                               </a>
                             </div>
@@ -285,81 +313,17 @@ export const Header: React.FC = () => {
           </header>
         </div>
         {/*  Share and compare mode section */}
-        {/* <div className="main-container">
-          <div className="announcement-wrap">
-            Share mode with Rony
-            <div className="userpic-wrap ">
-              <img src={UserPic} alt="" />
-            </div>
-          </div>
-        </div> */}
-      </div>
-
-      <Modal
-        headerText="Share / Compare"
-        isOpen={isOpenShareCompModal}
-        setOpen={setisOpenShareCompModal}
-      >
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-12 col-sm-12">
-              {/* <!--- toggle --> */}
-              <ToggleSelector />
-              {/* <div className="s-toggle-pill-wrapper">
-                <div className="s-toggle-selector"></div>
-
-                <div className="s-toggle-option">
-                  <label>
-                    <input type="radio" name="liveToggle" id="live" checked />
-                    <span>Share</span>
-                  </label>
-                </div>
-
-                <div className="s-toggle-option">
-                  <label>
-                    <input
-                      type="radio"
-                      id="time-shifted"
-                      name="liveToggle"
-                      // label="Time-shifted Shows"
-                    />
-                    <span>Compare</span>
-                  </label>
-                </div>
-              </div> */}
-
-              <br />
-              <div>
-                <p>
-                  <b className="m-0">Share mode</b> lets you and your partner
-                  work together by entering information into the same form,
-                  creating a seamless and unified experience. This way, both of
-                  your inputs are captured in one place, making the
-                  decision-making process smoother and more collaborative.
-                </p>
+        {acceptInvite && (
+          <div className="main-container">
+            <div className="announcement-wrap">
+              Share mode with Rony
+              <div className="userpic-wrap ">
+                <img src={UserPic} alt="" />
               </div>
             </div>
           </div>
-        </div>
-
-        <br />
-        <div className="text-center mt-4">
-          <input
-            type="button"
-            value="Proceed"
-            className="login-button"
-            onClick={() => setisOpenShareCompModal(false)}
-          />
-          <br />
-          <a
-            href="#"
-            className="login-button-text mt-3"
-            onClick={() => setisOpenShareCompModal(false)}
-          >
-            Cancel
-          </a>
-        </div>
-      </Modal>
+        )}
+      </div>
     </>
   );
 };

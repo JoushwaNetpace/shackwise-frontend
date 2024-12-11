@@ -24,6 +24,7 @@ axiosInstance.interceptors.request.use(
   (config: AxiosRequestConfig) => {
     // You can modify the request config here, e.g., add authorization tokens
     const token = getTokenFromCookie(); // Example token retrieval
+
     if (token) {
       config.headers["Authorization"] = `Bearer ${token}`;
     }

@@ -8,25 +8,26 @@ import {
   StarIcon,
 } from "../../config/Images";
 import { IPropertyDetail } from "../../types/types";
-import { useNavigate } from "react-router-dom";
+import { formatPrice } from "../../utils/commonUtils";
+import { Link } from "react-router-dom";
 
 const PropertyItem: React.FC<IPropertyDetail> = ({
-  price,
+  price = 0,
+  id,
   address,
-  bedrooms,
-  bathrooms,
+  bedrooms = 0,
+  bathrooms = 0,
   cars,
   sqftArea,
   description,
   imageUrl,
   compareMode = false,
+  isEditable = false,
 }) => {
-  const navigate = useNavigate();
-
   return (
     <div
       className="p-0 list-box-item position-relative"
-      onClick={() => navigate("/home/property-detail")}
+      // onClick={() => navigate("/home/property-detail")}
     >
       <div className="d-flex list-box-wrap list-box-column">
         <div className="img-box position-relative">
@@ -47,19 +48,22 @@ const PropertyItem: React.FC<IPropertyDetail> = ({
         <div className="">
           <div className="card-body">
             <div className="rate-rating-wrap">
-              <h3 className="mt-2">{price}</h3>
-              <button className="edit-rating-btn">
-                EDIT RATINGS <img src={StarIcon} alt="" />
-              </button>
+              <h3 className="mt-2">{formatPrice(price)}</h3>
+              {isEditable && (
+                <button className="edit-rating-btn">
+                  EDIT RATINGS <img src={StarIcon} alt="" />
+                </button>
+              )}
             </div>
             <h5 className="card-title mb-0 mt-2">{address}</h5>
 
             <div className="home-details-wrap">
               <div>
-                <img src={BedIcon} alt="Bed Icon" /> {bedrooms}
+                <img src={BedIcon} alt="Bed Icon" /> {bedrooms ? bedrooms : 0}
               </div>
               <div>
-                <img src={BadroomIcon} alt="Bathroom Icon" /> {bathrooms}
+                <img src={BadroomIcon} alt="Bathroom Icon" />{" "}
+                {bathrooms ? bathrooms : 0}
               </div>
               <div>
                 <img src={CarIcon} alt="Car Icon" /> {cars}
@@ -72,9 +76,12 @@ const PropertyItem: React.FC<IPropertyDetail> = ({
 
             <p className="card-text">{description}</p>
             <div className="d-flex justify-content-between align-items-center">
-              <a href="#" className="view-details-link">
+              <Link
+                to={isEditable ? "#" : `/home/rate-property/${id}`}
+                className="view-details-link"
+              >
                 View Detail Page
-              </a>
+              </Link>
 
               <div className="one-third-pod-btn p-0">
                 {" "}
