@@ -1,14 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
+import { RateModeEnum } from "../../store/types/stateTypes";
 
-interface ToggleMode {
-  share: "share";
-  compare: "compare";
+interface ToggleSelectorProps {
+  selectedMode: RateModeEnum;
+  setSelectedMode: (mode: RateModeEnum) => void;
 }
 
-export const ToggleSelector: React.FC = () => {
-  const [selectedMode, setSelectedMode] = useState<ToggleMode>("share");
-
-  const handleModeChange = (mode: ToggleMode) => {
+export const ToggleSelector: React.FC<ToggleSelectorProps> = ({
+  selectedMode,
+  setSelectedMode,
+}) => {
+  const handleModeChange = (mode: RateModeEnum) => {
     setSelectedMode(mode);
   };
 
@@ -16,20 +18,20 @@ export const ToggleSelector: React.FC = () => {
     <div className="s-toggle-pill-wrapper">
       <div
         className="s-toggle-selector"
-        style={{ left: selectedMode === "share" ? "0" : "50%" }}
+        style={{ left: selectedMode === "SHARE" ? "0" : "50%" }}
       />
 
       <div
         className="s-toggle-option"
-        onClick={() => handleModeChange("share")}
+        onClick={() => handleModeChange("SHARE")}
       >
         <label>
           <input
             type="radio"
             name="liveToggle"
             id="live"
-            checked={selectedMode === "share"}
-            onChange={() => handleModeChange("share")}
+            checked={selectedMode === "SHARE"}
+            onChange={() => handleModeChange("SHARE")}
           />
           <span>Share</span>
         </label>
@@ -37,15 +39,15 @@ export const ToggleSelector: React.FC = () => {
 
       <div
         className="s-toggle-option"
-        onClick={() => handleModeChange("compare")}
+        onClick={() => handleModeChange("COMPARE")}
       >
         <label>
           <input
             type="radio"
             name="liveToggle"
             id="time-shifted"
-            checked={selectedMode === "compare"}
-            onChange={() => handleModeChange("compare")}
+            checked={selectedMode === "COMPARE"}
+            onChange={() => handleModeChange("COMPARE")}
           />
           <span>Compare</span>
         </label>

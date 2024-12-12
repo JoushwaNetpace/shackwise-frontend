@@ -45,15 +45,19 @@ export const register = createAsyncThunk<IAuthResponse, RegisterPayload>(
 );
 // Async thunk for logout
 // Async thunk for logout
-export const logout = createAsyncThunk(LOGOUT, async () => {
-  try {
-    // Send a request to logout
-    await postRequest(ENDPOINTS.LOGOUT, {}); // Adjust with the correct API endpoint and method
-  } catch (error: any) {
-    // Directly throw the error
-    throw new Error(error.response?.data?.message || "Logout failed");
+export const logout = createAsyncThunk<{ success: boolean }, void>(
+  LOGOUT,
+  async () => {
+    try {
+      // Send a request to logout
+      const response: any = await postRequest(ENDPOINTS.LOGOUT, {}); // Adjust with the correct API endpoint and method
+      return response;
+    } catch (error: any) {
+      // Directly throw the error
+      throw new Error(error.response?.data?.message || "Logout failed");
+    }
   }
-});
+);
 
 // Async thunk for forgot password
 export const forgotPassword = createAsyncThunk<string, { email: string }>(

@@ -20,7 +20,6 @@ const RateProperty: React.FC = () => {
 
       const response: any = await dispatch(getPropertyDetail(payload)).unwrap();
 
-      console.log("response>>>", response);
       if (response.statusCode == 200) setpropertyData(response.data);
     } catch (error) {
       console.log(error);
@@ -32,9 +31,9 @@ const RateProperty: React.FC = () => {
       handleGetPropertyDetail(propertyId);
     }
   }, []);
-  useEffect(() => {
-    if (propertyData) console.log("propertyData>>", propertyData);
-  }, [propertyData]);
+  // useEffect(() => {
+  //   if (propertyData) console.log("propertyData>>", propertyData);
+  // }, [propertyData]);
 
   return (
     <div className="container">

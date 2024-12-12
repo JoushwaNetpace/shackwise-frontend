@@ -74,7 +74,7 @@ export const HomePriority: React.FC = () => {
       }
       if (response.success) {
         toast.success(response.message);
-        navigate("/home");
+        // navigate("/home");
       }
     } catch (error: any) {
       console.error("Error during priority submission:", error);
@@ -101,7 +101,7 @@ export const HomePriority: React.FC = () => {
                   placeHolder={pLItem.placeHolder}
                   mode="priority"
                   name={pLItem.name}
-                  value={priorities[pLItem.name]?.rating}
+                  value={userPriorityData[`${pLItem.name}`]?.rating}
                   onRatingChange={(value: number) =>
                     handleChange(pLItem.name, "rating", value)
                   }

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser, setAcceptInvite } from "./userActions"; // Import the fetchUser action
+import { fetchUser, setAcceptInvite, setRatingModeAction } from "./userActions"; // Import the fetchUser action
 import { UserState } from "../../types/stateTypes";
 
 // Initial state
@@ -8,6 +8,7 @@ const initialState: UserState = {
   loading: false,
   acceptInvite: false,
   error: null,
+  rateMode: "",
 };
 
 // Create user slice
@@ -45,6 +46,19 @@ const userSlice = createSlice({
         state.acceptInvite = action.payload; // Update the user state with the fetched user data
       })
       .addCase(setAcceptInvite.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to set accept invite";
+      });
+    builder
+      .addCase(setRatingModeAction.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(setRatingModeAction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.rateMode = action.payload; // Update the user state with the fetched user data
+      })
+      .addCase(setRatingModeAction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message || "Failed to set accept invite";
       });

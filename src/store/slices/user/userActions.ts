@@ -2,8 +2,9 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IIUserModelType } from "../../../types/types";
 import { getRequest } from "../../../config/request";
-import { ACCEPT_INVITE, FETCH_USER } from "../../types/actionTypes";
+import { ACCEPT_INVITE, FETCH_USER, SET_MODE } from "../../types/actionTypes";
 import { ENDPOINTS } from "../../../constants/constants";
+import { RateModeEnum } from "../../types/stateTypes";
 
 type AcceptInvite = boolean;
 
@@ -17,5 +18,9 @@ export const fetchUser = createAsyncThunk<IIUserModelType, void>(
 );
 export const setAcceptInvite = createAsyncThunk<boolean, AcceptInvite>(
   ACCEPT_INVITE,
+  async (payload) => payload
+);
+export const setRatingModeAction = createAsyncThunk<string, RateModeEnum>(
+  SET_MODE,
   async (payload) => payload
 );

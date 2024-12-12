@@ -31,6 +31,7 @@ const LeaderBoard: React.FC = () => {
               index
             ) => (
               <PropertyItem
+                compareMode={true}
                 isEditable={true}
                 key={index}
                 price={price}

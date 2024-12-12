@@ -3,12 +3,18 @@
 import { IIUserModelType } from "../../types/types";
 import { IAuthUser } from "../slices/auth/authTypes";
 
+export enum RateModeEnum {
+  COMPARE = "COMPARE",
+  SHARE = "SHARE",
+}
+
 export interface UserState {
   user: IIUserModelType | null; // Single user model
   loading: boolean; // Loading state
   acceptInvite?: boolean; // Loading state
   error: string | null; // Error message
-  userPriority?: PriorityPayload | null; // Error message
+  userPriority?: PriorityPayload | null; // Priority payload
+  rateMode?: RateModeEnum | ""; // New rate mode property with enum values
 }
 export interface PriorityState {
   loading: boolean; // Loading state

@@ -6,12 +6,13 @@ import {
   UserPic,
 } from "../../config/Images";
 import useClickOutside from "../../hooks/useClickOutside";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/auth/authActions";
 import { useSelector } from "react-redux";
 import {
   selectAcceptInvite,
+  selectRatingMode,
   selectUser,
 } from "../../store/slices/user/userSelectors";
 import { removeTokenFromCookie } from "../../utils/CookieUtils";
@@ -20,12 +21,20 @@ import {
   changeInviteConnectModalAction,
   changeShareCompareModalAction,
 } from "../../store/slices/modal/modalActions";
-import { setAcceptInvite } from "../../store/slices/user/userActions";
+import {
+  setAcceptInvite,
+  setRatingModeAction,
+} from "../../store/slices/user/userActions";
+import { AppDispatch } from "../../store/store";
+import { getInitials } from "../../utils/commonUtils";
 
 export const Header: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
+  const { pathname } = useLocation();
+
   const userData = useSelector(selectUser);
   const acceptInvite = useSelector(selectAcceptInvite);
+  const RatingMode = useSelector(selectRatingMode);
 
   // State to track dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false);
@@ -57,10 +66,16 @@ export const Header: React.FC = () => {
     setShowDropdown((prevState) => !prevState);
   };
 
-  const handleLogout = () => {
-    // Dispatch the logout action
-    removeTokenFromCookie();
-    dispatch(logout());
+  const handleLogout = async () => {
+    try {
+      // Dispatch the logout action
+      await removeTokenFromCookie();
+      dispatch(logout()).unwrap();
+      dispatch(setAcceptInvite(false)).unwrap();
+      dispatch(setRatingModeAction("")).unwrap();
+    } catch (error) {
+      console.log("error>>", error);
+    }
   };
   useEffect(() => {
     const handleEvent = (event: MouseEvent) => {
@@ -94,44 +109,81 @@ export const Header: React.FC = () => {
           <ul>
             <li className="pushy-link">
               <Link to="#" className="menu-notification relative">
-                <div className="user-profile">JD</div>
-                <div className="profile-name-mobile">Hi Daniels</div>
+                <div className="user-profile">
+                  {getInitials(userData ? userData?.name : "User Name")}
+                </div>
+                <div className="profile-name-mobile">
+                  Hi {userData ? userData?.name : "User"}
+                </div>
               </Link>
             </li>
 
             <li className="pushy-submenu pushy-link">
-              <Link to="/home/leaderboard">
+              <Link
+                to="/home/leaderboard"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                }}
+              >
                 <div className="menu-img dashbord-icon"></div>
                 <div>Leaderboard</div>
               </Link>
             </li>
 
             <li className="pushy-link">
-              <Link to="/home/search-property">
+              <Link
+                to="/home/search-property"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                }}
+              >
                 <div className="menu-img devices-icon"></div>
                 <div>Rate home</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="/home/priorites">
+              <Link
+                to="/home/priorites"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                }}
+              >
                 <div className="menu-img users-icon"></div>
                 <div>Priorities</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link
+                to="#"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                  dispatch(changeInviteConnectModalAction(true));
+                }}
+              >
                 <div className="menu-img policy-icon"></div>
                 <div>invite/connect</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link
+                to="#"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                  dispatch(changeShareCompareModalAction(true));
+                }}
+              >
                 <div className="menu-img connectors-icon"></div>
                 <div className="">share/compare</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link
+                to="#"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                  dispatch(changeHowItWorksModalAction(true));
+                }}
+              >
                 <div className="menu-img reports-icon"></div>
                 <div>how it works</div>
               </Link>
@@ -167,17 +219,36 @@ export const Header: React.FC = () => {
               <ul className="p-0">
                 <li>
                   <div className="menu-img dashbord-icon"></div>
-                  <Link to="/home/leaderboard" className="active-link">
+                  <Link
+                    to="/home/leaderboard"
+                    className={
+                      pathname == "/home/leaderboard" ? "active-link" : ""
+                    }
+                  >
                     Leaderboard
                   </Link>
                 </li>
                 <li>
                   <div className="menu-img devices-icon"></div>
-                  <Link to="/home/search-property">Rate home</Link>
+                  <Link
+                    to="/home/search-property"
+                    className={
+                      pathname == "/home/search-property" ? "active-link" : ""
+                    }
+                  >
+                    Rate home
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img users-icon"></div>
-                  <Link to="/home/priorites">priorities</Link>
+                  <Link
+                    to="/home/priorites"
+                    className={
+                      pathname == "/home/priorites" ? "active-link" : ""
+                    }
+                  >
+                    priorities
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img policy-icon"></div>
@@ -222,9 +293,12 @@ export const Header: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="user-profile" onClick={handleLogout}>
-                  JD
-                </div>
+                <button
+                  className="user-profile cursor-pointer"
+                  onClick={handleLogout}
+                >
+                  {getInitials(userData ? userData?.name : "User Name")}
+                </button>
               </div>
 
               <div className="dropdown ml-2" ref={dropdownRef}>
@@ -281,6 +355,8 @@ export const Header: React.FC = () => {
                                 href="#"
                                 className="accept-text"
                                 onClick={() => {
+                                  dispatch(setRatingModeAction("SHARE"));
+
                                   dispatch(setAcceptInvite(!acceptInvite));
                                   handleDropdownToggle();
                                 }}
@@ -316,7 +392,7 @@ export const Header: React.FC = () => {
         {acceptInvite && (
           <div className="main-container">
             <div className="announcement-wrap">
-              Share mode with Rony
+              {RatingMode == "SHARE" ? "Share" : "Compare"} mode with Rony
               <div className="userpic-wrap ">
                 <img src={UserPic} alt="" />
               </div>

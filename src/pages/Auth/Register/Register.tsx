@@ -194,7 +194,9 @@ const Register: React.FC = () => {
                 <img src={SuccessIcon} className="logo" alt="Register Icon" />
               </div>
               <h3 className="text-success fs-5 text-center">
-                {"User has been registered successfully."}
+                {
+                  "User has been registered successfully. Please check your email"
+                }
               </h3>
             </>
           )}
