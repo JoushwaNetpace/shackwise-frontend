@@ -12,6 +12,7 @@ import { logout } from "../../store/slices/auth/authActions";
 import { useSelector } from "react-redux";
 import {
   selectAcceptInvite,
+  selectRatingMode,
   selectUser,
 } from "../../store/slices/user/userSelectors";
 import { removeTokenFromCookie } from "../../utils/CookieUtils";
@@ -20,12 +21,17 @@ import {
   changeInviteConnectModalAction,
   changeShareCompareModalAction,
 } from "../../store/slices/modal/modalActions";
-import { setAcceptInvite } from "../../store/slices/user/userActions";
+import {
+  setAcceptInvite,
+  setRatingModeAction,
+} from "../../store/slices/user/userActions";
+import { AppDispatch } from "../../store/store";
 
 export const Header: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   const userData = useSelector(selectUser);
   const acceptInvite = useSelector(selectAcceptInvite);
+  const RatingMode = useSelector(selectRatingMode);
 
   // State to track dropdown visibility
   const [showDropdown, setShowDropdown] = useState(false);
@@ -57,10 +63,14 @@ export const Header: React.FC = () => {
     setShowDropdown((prevState) => !prevState);
   };
 
-  const handleLogout = () => {
-    // Dispatch the logout action
-    removeTokenFromCookie();
-    dispatch(logout());
+  const handleLogout = async () => {
+    try {
+      // Dispatch the logout action
+      await removeTokenFromCookie();
+      dispatch(logout()).unwrap();
+    } catch (error) {
+      console.log("error>>", error);
+    }
   };
   useEffect(() => {
     const handleEvent = (event: MouseEvent) => {
@@ -100,38 +110,71 @@ export const Header: React.FC = () => {
             </li>
 
             <li className="pushy-submenu pushy-link">
-              <Link to="/home/leaderboard">
+              <Link
+                to="/home/leaderboard"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                }}
+              >
                 <div className="menu-img dashbord-icon"></div>
                 <div>Leaderboard</div>
               </Link>
             </li>
 
             <li className="pushy-link">
-              <Link to="/home/search-property">
+              <Link
+                to="/home/search-property"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                }}
+              >
                 <div className="menu-img devices-icon"></div>
                 <div>Rate home</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="/home/priorites">
+              <Link
+                to="/home/priorites"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                }}
+              >
                 <div className="menu-img users-icon"></div>
                 <div>Priorities</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link
+                to="#"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                  dispatch(changeInviteConnectModalAction(true));
+                }}
+              >
                 <div className="menu-img policy-icon"></div>
                 <div>invite/connect</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link
+                to="#"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                  dispatch(changeShareCompareModalAction(true));
+                }}
+              >
                 <div className="menu-img connectors-icon"></div>
                 <div className="">share/compare</div>
               </Link>
             </li>
             <li className="pushy-link">
-              <Link to="#">
+              <Link
+                to="#"
+                onClick={() => {
+                  setshowPushyNavMenu(false);
+                  dispatch(changeHowItWorksModalAction(true));
+                }}
+              >
                 <div className="menu-img reports-icon"></div>
                 <div>how it works</div>
               </Link>
@@ -222,9 +265,12 @@ export const Header: React.FC = () => {
                   </div>
                 </div>
 
-                <div className="user-profile" onClick={handleLogout}>
+                <button
+                  className="user-profile cursor-pointer"
+                  onClick={handleLogout}
+                >
                   JD
-                </div>
+                </button>
               </div>
 
               <div className="dropdown ml-2" ref={dropdownRef}>
@@ -281,6 +327,8 @@ export const Header: React.FC = () => {
                                 href="#"
                                 className="accept-text"
                                 onClick={() => {
+                                  dispatch(setRatingModeAction("SHARE"));
+
                                   dispatch(setAcceptInvite(!acceptInvite));
                                   handleDropdownToggle();
                                 }}
@@ -316,7 +364,7 @@ export const Header: React.FC = () => {
         {acceptInvite && (
           <div className="main-container">
             <div className="announcement-wrap">
-              Share mode with Rony
+              {RatingMode == "SHARE" ? "Share" : "Compare"} mode with Rony
               <div className="userpic-wrap ">
                 <img src={UserPic} alt="" />
               </div>

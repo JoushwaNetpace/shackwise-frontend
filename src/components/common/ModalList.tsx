@@ -1,5 +1,5 @@
 // src/components/ModalList.tsx
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectShowHowItWorks,
@@ -14,13 +14,28 @@ import {
   changeShareCompareModalAction,
 } from "../../store/slices/modal/modalActions";
 import { AppDispatch } from "../../store/store";
+import { RateModeEnum } from "../../store/types/stateTypes";
+import {
+  setAcceptInvite,
+  setRatingModeAction,
+} from "../../store/slices/user/userActions";
+import { selectAcceptInvite } from "../../store/slices/user/userSelectors";
 
 export const ModalList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const showShareCompare = useSelector(selectShowShareCompare);
   const showHowItWorks = useSelector(selectShowHowItWorks);
   const showInviteConnect = useSelector(selectShowInviteConnect);
-  console.log("showShareCompare>>", showShareCompare);
+  const acceptInvite = useSelector(selectAcceptInvite);
+
+  const [selectedMode, setSelectedMode] = useState<RateModeEnum>("SHARE");
+
+  const handleSetUserRatingMode = async () => {
+    dispatch(setRatingModeAction(selectedMode));
+    dispatch(setAcceptInvite(!acceptInvite));
+
+    dispatch(changeShareCompareModalAction(false));
+  };
   return (
     <>
       {showShareCompare && (
@@ -44,7 +59,10 @@ export const ModalList: React.FC = () => {
               <div className="container-fluid">
                 <div className="row">
                   <div className="col-sm-12">
-                    <ToggleSelector />
+                    <ToggleSelector
+                      selectedMode={selectedMode}
+                      setSelectedMode={setSelectedMode}
+                    />
                     <br />
                     <div>
                       <p>
@@ -63,7 +81,7 @@ export const ModalList: React.FC = () => {
                   type="button"
                   value="Submit"
                   className="login-button"
-                  onClick={() => dispatch(changeShareCompareModalAction(false))}
+                  onClick={handleSetUserRatingMode}
                 />
                 <br />
                 <a
