@@ -38,7 +38,6 @@ export const HomePriority: React.FC = () => {
   });
 
   useEffect(() => {
-    console.log("userPriorityData>>", userPriorityData);
     if (userPriorityData) {
       setPriorities((prev: any) => ({
         ...prev,

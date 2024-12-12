@@ -5,7 +5,6 @@ import { selectAuthToken } from "../store/slices/auth/authSelectors";
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const authToken = useSelector(selectAuthToken);
-  console.log("authToken>", authToken);
   if (!authToken) {
     // Redirect to login if user is not authenticated
     return <Navigate to="/login" replace />;

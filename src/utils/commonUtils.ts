@@ -12,3 +12,10 @@ export const formatPrice = (price: number): string => {
 
   return `${formattedPrice} USD`;
 };
+
+export const getInitials = (name: string): string =>
+  name
+    .split(" ")
+    .map((word) => word.charAt(0))
+    .join("")
+    .toUpperCase();

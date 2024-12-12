@@ -25,7 +25,6 @@ const prioritySlice = createSlice({
         state.error = null;
       })
       .addCase(createUserPriority.fulfilled, (state, action) => {
-        console.log("Fulfilled payload:", action.payload.data);
         state.loading = false;
         state.userPriority = action.payload.data;
       })
@@ -41,7 +40,6 @@ const prioritySlice = createSlice({
         state.error = null;
       })
       .addCase(updateUserPriority.fulfilled, (state, action) => {
-        console.log("Fulfilled payload:", action.payload.data);
         state.loading = false;
         state.userPriority = action.payload.data;
       })

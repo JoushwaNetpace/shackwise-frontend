@@ -22,7 +22,6 @@ const propertySlice = createSlice({
         state.error = null;
       })
       .addCase(searchProperty.fulfilled, (state, action) => {
-        console.log("Fulfilled payload:", action.payload);
         state.loading = false;
         state.propertyList = action.payload.data;
       })

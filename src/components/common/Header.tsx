@@ -6,7 +6,7 @@ import {
   UserPic,
 } from "../../config/Images";
 import useClickOutside from "../../hooks/useClickOutside";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/auth/authActions";
 import { useSelector } from "react-redux";
@@ -26,9 +26,12 @@ import {
   setRatingModeAction,
 } from "../../store/slices/user/userActions";
 import { AppDispatch } from "../../store/store";
+import { getInitials } from "../../utils/commonUtils";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const { pathname } = useLocation();
+
   const userData = useSelector(selectUser);
   const acceptInvite = useSelector(selectAcceptInvite);
   const RatingMode = useSelector(selectRatingMode);
@@ -68,6 +71,8 @@ export const Header: React.FC = () => {
       // Dispatch the logout action
       await removeTokenFromCookie();
       dispatch(logout()).unwrap();
+      dispatch(setAcceptInvite(false)).unwrap();
+      dispatch(setRatingModeAction("")).unwrap();
     } catch (error) {
       console.log("error>>", error);
     }
@@ -104,8 +109,12 @@ export const Header: React.FC = () => {
           <ul>
             <li className="pushy-link">
               <Link to="#" className="menu-notification relative">
-                <div className="user-profile">JD</div>
-                <div className="profile-name-mobile">Hi Daniels</div>
+                <div className="user-profile">
+                  {getInitials(userData ? userData?.name : "User Name")}
+                </div>
+                <div className="profile-name-mobile">
+                  Hi {userData ? userData?.name : "User"}
+                </div>
               </Link>
             </li>
 
@@ -210,17 +219,36 @@ export const Header: React.FC = () => {
               <ul className="p-0">
                 <li>
                   <div className="menu-img dashbord-icon"></div>
-                  <Link to="/home/leaderboard" className="active-link">
+                  <Link
+                    to="/home/leaderboard"
+                    className={
+                      pathname == "/home/leaderboard" ? "active-link" : ""
+                    }
+                  >
                     Leaderboard
                   </Link>
                 </li>
                 <li>
                   <div className="menu-img devices-icon"></div>
-                  <Link to="/home/search-property">Rate home</Link>
+                  <Link
+                    to="/home/search-property"
+                    className={
+                      pathname == "/home/search-property" ? "active-link" : ""
+                    }
+                  >
+                    Rate home
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img users-icon"></div>
-                  <Link to="/home/priorites">priorities</Link>
+                  <Link
+                    to="/home/priorites"
+                    className={
+                      pathname == "/home/priorites" ? "active-link" : ""
+                    }
+                  >
+                    priorities
+                  </Link>
                 </li>
                 <li>
                   <div className="menu-img policy-icon"></div>
@@ -269,7 +297,7 @@ export const Header: React.FC = () => {
                   className="user-profile cursor-pointer"
                   onClick={handleLogout}
                 >
-                  JD
+                  {getInitials(userData ? userData?.name : "User Name")}
                 </button>
               </div>
 
