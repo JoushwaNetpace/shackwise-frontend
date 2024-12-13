@@ -4,10 +4,7 @@ import PriorityOption from "../../../components/Shared/PriorityOption";
 import { priortiesList } from "../../../data/data";
 import { AppDispatch } from "../../../store/store";
 import { useDispatch } from "react-redux";
-import {
-  createUserPriority,
-  updateUserPriority,
-} from "../../../store/slices/priority/priorityActions";
+import { updateUserPriority } from "../../../store/slices/priority/priorityActions";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../store/slices/user/userSelectors";
@@ -47,17 +44,12 @@ const SetPriorities: React.FC = () => {
   const handleSubmit = async () => {
     let response: any;
     try {
-      if (!userPriorityData) {
-        response = await dispatch(createUserPriority(priorities)).unwrap();
-      } else {
-        const updatedPriorities: PriorityPayload = {
-          priorityId: userPriorityData?._id,
-          ...priorities,
-        };
-        response = await dispatch(
-          updateUserPriority(updatedPriorities)
-        ).unwrap();
-      }
+      const updatedPriorities: PriorityPayload = {
+        priorityId: userPriorityData?._id,
+        ...priorities,
+      };
+      response = await dispatch(updateUserPriority(updatedPriorities)).unwrap();
+
       if (response.success) {
         toast.success(response.message);
 

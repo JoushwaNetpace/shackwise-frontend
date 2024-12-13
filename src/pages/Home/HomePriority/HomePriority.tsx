@@ -4,22 +4,17 @@ import PriorityOption from "../../../components/Shared/PriorityOption";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../../store/slices/user/userSelectors";
 import { selectUserPriority } from "../../../store/slices/priority/prioritySelectors";
-import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../../store/store";
 import toast from "react-hot-toast";
-import {
-  createUserPriority,
-  updateUserPriority,
-} from "../../../store/slices/priority/priorityActions";
+import { updateUserPriority } from "../../../store/slices/priority/priorityActions";
 import { PriorityPayload } from "../../../store/types/stateTypes";
 
 export const HomePriority: React.FC = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
   const userData: any = useSelector(selectUser);
   const userPriorityData: any = useSelector(selectUserPriority);
-  const [priorities, setPriorities] = useState<any>({
+  const [priorities, setPriorities] = useState<PriorityPayload>({
     userId: userData._id,
     affordability: { rating: 0, note: "" },
     listPMarketV: { rating: 0, note: "" },
@@ -61,17 +56,12 @@ export const HomePriority: React.FC = () => {
   const handleSubmit = async () => {
     let response: any;
     try {
-      if (!userPriorityData) {
-        response = await dispatch(createUserPriority(priorities)).unwrap();
-      } else {
-        const updatedPriorities: PriorityPayload = {
-          priorityId: userPriorityData?._id,
-          ...priorities,
-        };
-        response = await dispatch(
-          updateUserPriority(updatedPriorities)
-        ).unwrap();
-      }
+      const updatedPriorities: PriorityPayload = {
+        priorityId: userPriorityData?._id,
+        ...priorities,
+      };
+      response = await dispatch(updateUserPriority(updatedPriorities)).unwrap();
+
       if (response.success) {
         toast.success(response.message);
         // navigate("/home");
@@ -93,10 +83,10 @@ export const HomePriority: React.FC = () => {
             <h3 className="text-center">
               How important is each characteristic to you?
             </h3>
-            {priortiesList.map((pLItem: any, index) => {
+            {priortiesList.map((pLItem: any, index: number) => {
               return (
                 <PriorityOption
-                  // key={index}
+                  key={index}
                   label={pLItem.label}
                   placeHolder={pLItem.placeHolder}
                   mode="priority"

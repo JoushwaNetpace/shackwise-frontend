@@ -8,12 +8,19 @@ import { AppDispatch } from "../../../store/store";
 import { useDispatch } from "react-redux";
 import { getPropertyDetail } from "../../../store/slices/property/propertyActions";
 import { GetPropertyDetailPayload } from "../../../store/types/stateTypes";
+import { useSelector } from "react-redux";
+import {
+  selectLoading,
+  selectPropertyDetail,
+} from "../../../store/slices/property/propertySelectors";
+import PropertyDetailSkeleton from "../../../components/Shared/SkeletonComponents/PropertyDetailSkeleton";
 // import SearchBar from "../../../components/Shared/SearchBar";
 
 const RateProperty: React.FC = () => {
   const { propertyId } = useParams();
   const dispatch = useDispatch<AppDispatch>();
-  const [propertyData, setpropertyData] = useState(null);
+  const [propertyData, setpropertyData] = useState<any>(null);
+  const loadingPropertyDetail = useSelector(selectLoading);
   const handleGetPropertyDetail = async (id: string) => {
     try {
       const payload: GetPropertyDetailPayload = { id };
@@ -31,9 +38,6 @@ const RateProperty: React.FC = () => {
       handleGetPropertyDetail(propertyId);
     }
   }, []);
-  // useEffect(() => {
-  //   if (propertyData) console.log("propertyData>>", propertyData);
-  // }, [propertyData]);
 
   return (
     <div className="container">
@@ -41,16 +45,21 @@ const RateProperty: React.FC = () => {
         {/*   search field wrap  */}
 
         {/*   imgs box wrap  */}
-        <PropertyDetail
-          price={propertyData?.mlsListingPrice}
-          address={propertyData?.propertyInfo?.address?.label}
-          bedrooms={propertyData?.propertyInfo?.bedrooms}
-          bathrooms={propertyData?.propertyInfo?.bathrooms}
-          cars={propertyData?.propertyInfo?.parkingSpaces} // You can add a default car value or fetch it from the data if available
-          sqftArea={propertyDataList[0].sqft_area}
-          description={propertyDataList[0].description}
-          imageUrl={propertyDataList[0].images[0]} // Assuming you want to display the first image
-        />
+        {loadingPropertyDetail ? (
+          <PropertyDetailSkeleton />
+        ) : (
+          <PropertyDetail
+            id="1"
+            price={propertyData?.mlsListingPrice}
+            address={propertyData?.propertyInfo?.address?.label}
+            bedrooms={propertyData?.propertyInfo?.bedrooms}
+            bathrooms={propertyData?.propertyInfo?.bathrooms}
+            cars={propertyData?.propertyInfo?.parkingSpaces} // You can add a default car value or fetch it from the data if available
+            sqftArea={propertyDataList[0].sqft_area}
+            description={propertyDataList[0].description}
+            imageUrl={propertyDataList[0].images[0]} // Assuming you want to display the first image
+          />
+        )}
 
         <div className="col-lg-8 col-sm-12 m-auto mt-5">
           <div className="text-center mt-4">
@@ -62,6 +71,7 @@ const RateProperty: React.FC = () => {
           {priortiesList.map((pLItem, index) => (
             <PriorityOption
               key={index}
+              mode="rate"
               label={pLItem.label}
               placeHolder={pLItem.placeHolder}
             />

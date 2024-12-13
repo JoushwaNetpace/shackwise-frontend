@@ -53,6 +53,7 @@ export interface PriorityPayload {
   listPMarketV: PriorityField;
   location: PriorityField;
   kitchenSize: PriorityField;
+  kitchenDesign: PriorityField;
   masterBedroom: PriorityField;
   masterBathroom: PriorityField;
   secondaryBathroom: PriorityField;

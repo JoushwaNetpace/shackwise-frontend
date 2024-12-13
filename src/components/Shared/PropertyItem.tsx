@@ -9,7 +9,12 @@ import {
 } from "../../config/Images";
 import { IPropertyDetail } from "../../types/types";
 import { formatPrice } from "../../utils/commonUtils";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  selectAcceptInvite,
+  selectRatingMode,
+} from "../../store/slices/user/userSelectors";
+import { useSelector } from "react-redux";
 
 const PropertyItem: React.FC<IPropertyDetail> = ({
   price = 0,
@@ -24,6 +29,9 @@ const PropertyItem: React.FC<IPropertyDetail> = ({
   compareMode = false,
   isEditable = false,
 }) => {
+  const acceptInvite = useSelector(selectAcceptInvite);
+  const RatingMode = useSelector(selectRatingMode);
+  const navigate = useNavigate();
   return (
     <div
       className="p-0 list-box-item position-relative"
@@ -32,17 +40,22 @@ const PropertyItem: React.FC<IPropertyDetail> = ({
       <div className="d-flex list-box-wrap list-box-column">
         <div className="img-box position-relative">
           <img src={imageUrl} className="img-fluid" alt="Property" />
-          {compareMode && (
+          {acceptInvite || compareMode ? (
             <div className="tag-wrap">
-              <div className="tag-blue">
-                <p>87</p>
-                <span>Score</span>
-              </div>
-              <div className="tag-yellow">
-                <p>91</p>
-                <span>Score</span>
-              </div>
+              {RatingMode == "SHARE" || compareMode ? (
+                <div className="tag-blue">
+                  <p>87</p>
+                  <span>Score</span>
+                </div>
+              ) : (
+                <div className="tag-yellow">
+                  <p>91</p>
+                  <span>Score</span>
+                </div>
+              )}
             </div>
+          ) : (
+            <></>
           )}
         </div>
         <div className="">
@@ -77,17 +90,21 @@ const PropertyItem: React.FC<IPropertyDetail> = ({
             <p className="card-text">{description}</p>
             <div className="d-flex justify-content-between align-items-center">
               <Link
-                to={isEditable ? "#" : `/home/rate-property/${id}`}
+                // to={isEditable ? "#" : `/home/rate-property/${id}`}
+                to={
+                  isEditable
+                    ? "/home/property-detail"
+                    : `/home/rate-property/${id}`
+                }
                 className="view-details-link"
               >
                 View Detail Page
               </Link>
 
               <div className="one-third-pod-btn p-0">
-                {" "}
                 <a href="#" className="edit-rating-btn py-2 px-3">
                   <img src={ShareIconYellow} />
-                </a>{" "}
+                </a>
               </div>
             </div>
           </div>

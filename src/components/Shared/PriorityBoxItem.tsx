@@ -2,7 +2,7 @@ import React from "react";
 import { IPropertyRating } from "../../types/types";
 import ProgressBarItem from "./ProgressBarItem";
 interface IPriorityBoxItem extends IPropertyRating {
-  title: string;
+  title?: string;
 }
 const PriorityBoxItem: React.FC<IPriorityBoxItem> = ({
   title,
