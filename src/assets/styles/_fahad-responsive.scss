@@ -55,6 +55,42 @@
     background: #555;
   }
 }
+
+.custom-slider .ant-slider-mark {
+  top: -25px; /* Adjust the top value to position labels above the slider */
+}
+
+.custom-slider .ant-slider-mark-text {
+  color: #666;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.custom-slider .ant-slider-rail {
+  height: 4px;
+}
+
+.custom-slider .ant-slider-track {
+  height: 4px;
+}
+
+.custom-slider .ant-slider-handle {
+  border-color: #4a90e2;
+}
+.ant-slider-with-marks {
+  margin: 1rem 0rem;
+}
+// slider custom css
+.ant-slider-dot {
+  background-color: #d9d9d9 !important;
+}
+.ant-slider-dot-active {
+  background-color: #4bade5 !important;
+}
+
+.ant-slider-handle::after {
+  background-color: #4bade5 !important;
+}
 @media screen and (max-width: 767px) {
   .compare-option-box-wrap h4,
   .compare-option-box-wrap .rang-slider-wrap {

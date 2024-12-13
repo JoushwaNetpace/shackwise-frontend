@@ -31,6 +31,7 @@ const LeaderBoard: React.FC = () => {
               index
             ) => (
               <PropertyItem
+                id={index.toString()}
                 compareMode={true}
                 isEditable={true}
                 key={index}
@@ -38,7 +39,7 @@ const LeaderBoard: React.FC = () => {
                 address={address}
                 bedrooms={bedrooms}
                 bathrooms={bathrooms}
-                cars={1} // You can add a default car value or fetch it from the data if available
+                cars={Math.floor(Math.random() * 11)} // You can add a default car value or fetch it from the data if available
                 sqftArea={sqft_area}
                 description={description}
                 imageUrl={images[0]} // Assuming you want to display the first image

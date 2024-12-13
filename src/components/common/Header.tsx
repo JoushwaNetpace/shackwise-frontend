@@ -6,7 +6,7 @@ import {
   UserPic,
 } from "../../config/Images";
 import useClickOutside from "../../hooks/useClickOutside";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logout } from "../../store/slices/auth/authActions";
 import { useSelector } from "react-redux";
@@ -31,7 +31,7 @@ import { getInitials } from "../../utils/commonUtils";
 export const Header: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { pathname } = useLocation();
-
+  const navigate = useNavigate();
   const userData = useSelector(selectUser);
   const acceptInvite = useSelector(selectAcceptInvite);
   const RatingMode = useSelector(selectRatingMode);
@@ -94,7 +94,9 @@ export const Header: React.FC = () => {
       document.removeEventListener("mousedown", handleEvent);
     };
   }, []);
-
+  const navigateTo = (url: string) => {
+    navigate(url);
+  };
   return (
     <>
       {/* <!-- Pushy Menu Mobile--> */}
@@ -217,7 +219,7 @@ export const Header: React.FC = () => {
 
             <div className="top-menu header-menu">
               <ul className="p-0">
-                <li>
+                <li onClick={() => navigateTo("/home/leaderboard")}>
                   <div className="menu-img dashbord-icon"></div>
                   <Link
                     to="/home/leaderboard"
@@ -228,7 +230,7 @@ export const Header: React.FC = () => {
                     Leaderboard
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => navigateTo("/home/search-property")}>
                   <div className="menu-img devices-icon"></div>
                   <Link
                     to="/home/search-property"
@@ -239,7 +241,7 @@ export const Header: React.FC = () => {
                     Rate home
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => navigateTo("/home/priorites")}>
                   <div className="menu-img users-icon"></div>
                   <Link
                     to="/home/priorites"
@@ -250,37 +252,23 @@ export const Header: React.FC = () => {
                     priorities
                   </Link>
                 </li>
-                <li>
+                <li
+                  onClick={() => dispatch(changeInviteConnectModalAction(true))}
+                >
                   <div className="menu-img policy-icon"></div>
-                  <Link
-                    to="#"
-                    onClick={() =>
-                      dispatch(changeInviteConnectModalAction(true))
-                    }
-                  >
-                    invite/connect
-                  </Link>
+                  <Link to="#">invite/connect</Link>
                 </li>
-                <li>
+                <li
+                  onClick={() => dispatch(changeShareCompareModalAction(true))}
+                >
                   <div className="menu-img connectors-icon"></div>
-                  <Link
-                    to="#"
-                    className=""
-                    onClick={() =>
-                      dispatch(changeShareCompareModalAction(true))
-                    }
-                  >
+                  <Link to="#" className="">
                     share/compare
                   </Link>
                 </li>
-                <li>
+                <li onClick={() => dispatch(changeHowItWorksModalAction(true))}>
                   <div className="menu-img reports-icon"></div>
-                  <Link
-                    to="#"
-                    onClick={() => dispatch(changeHowItWorksModalAction(true))}
-                  >
-                    how it works
-                  </Link>
+                  <Link to="#">how it works</Link>
                 </li>
               </ul>
             </div>
@@ -347,7 +335,9 @@ export const Header: React.FC = () => {
                             </div>
                             <div className="flex-1">
                               <strong className="text-info">
-                                Rony sent you a Share request
+                                Rony sent you a{" "}
+                                {RatingMode == "SHARE" ? "Share" : "Compare"}{" "}
+                                request
                               </strong>
                             </div>
                             <div>

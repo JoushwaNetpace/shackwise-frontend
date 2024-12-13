@@ -80,7 +80,7 @@ const SearchProperty: React.FC = () => {
                     address={address?.address}
                     bedrooms={bedrooms}
                     bathrooms={bathrooms}
-                    cars={garage ? garage : 0} // You can add a default car value or fetch it from the data if available
+                    cars={Math.floor(Math.random() * 11)} // You can add a default car value or fetch it from the data if available
                     sqftArea={squareFeet}
                     description={description}
                     imageUrl={FramImg} // Assuming you want to display the first image

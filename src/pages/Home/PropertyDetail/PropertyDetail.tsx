@@ -19,7 +19,7 @@ const PropertyDetail: React.FC = () => {
 
   return (
     <div className="container">
-      <div className="row m-0">
+      <div className="row mt-5">
         {/* <SearchBar /> */}
         <div className="row p-0 m-auto">
           <div className="col-lg-8 col-md-8 col-sm-12">
@@ -101,13 +101,13 @@ const PropertyDetail: React.FC = () => {
                 }
               )}
               <br />
-              <div className="text-center col-lg-4 m-auto mt-5">
+              {/* <div className="text-center col-lg-4 m-auto mt-5">
                 <input type="button" value="Submit" className="login-button" />
-              </div>
+              </div> */}
             </div>
           </div>
           {/* Top Ranked Home */}
-          {/* <div className="col-lg-4 col-md-4 col-sm-12 property-details-right">
+          <div className="col-lg-4 col-md-4 col-sm-12 property-details-right">
             <h2 className="">Top-ranked homes</h2>
             <div className="property-details-right-wrap">
               {propertyDataList
@@ -140,7 +140,7 @@ const PropertyDetail: React.FC = () => {
                   )
                 )}
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>
