@@ -19,6 +19,7 @@
     "antd": "^5.22.3",
     "axios": "^1.7.3",
     "bootstrap": "^5.3.3",
+    "firebase": "^11.1.0",
     "formik": "^2.4.6",
     "js-cookie": "^3.0.5",
     "lottie-web": "^5.12.2",
@@ -35,6 +36,7 @@
     "sass-embedded": "^1.81.1",
     "sass-loader": "^16.0.3",
     "save-dev": "^0.0.1-security",
+    "socket.io-client": "^4.8.1",
     "vite-plugin-sass": "^0.1.0",
     "yup": "^1.4.0"
   },

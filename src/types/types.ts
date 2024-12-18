@@ -20,7 +20,19 @@ export interface IProperty {
   description: string;
   images: string[];
 }
-
+export interface INotificationDocument {
+  userId: string;
+  title: string;
+  body: string;
+  // type: string;
+  connectId: string;
+  notificationType:
+    | "GENERAL"
+    | "COMPARE_REQUEST"
+    | "SHARE_REQUEST"
+    | "CONNECTION_REQUEST";
+  isRead?: boolean;
+}
 export interface IPropertyRating {
   percentage: 0 | 25 | 50 | 75 | 100;
   userPic: string;
@@ -65,6 +77,7 @@ export interface ILocation {
 
 export interface IIUserModelType {
   email: string;
+  _id: string;
   avatar?: string; // URL
   name: string;
   username: string;

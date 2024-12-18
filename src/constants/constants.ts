@@ -14,6 +14,9 @@ export const ENDPOINTS = {
   CREATE_PRIORITY: "/priority",
   GET_USER_PRIORITY: "/priority/user-priority",
   UPDATE_USER_PRIORITY: "/priority/",
+
+  // NOTIFICATIONS
+  USER_NOTIFICATIONS: "/notification/user-notification",
 };
 export const REAPI_ENDPOINTS = {
   AUTOCOMPLETE: "/AutoComplete",

@@ -43,7 +43,7 @@ const TextInput: React.FC<ITextInput> = ({
           placeholder={placeHolder}
           value={value}
           onChange={handleChange} // Use the custom handleChange function
-          inputMode={inputMode ? inputMode : ""} // Use numeric input mode if numeric field
+          inputMode={inputMode ? inputMode : "text"} // Use numeric input mode if numeric field
           // pattern={isNumericField ? "[0-9s]{13,19}" : undefined} // Set pattern for numeric fields (e.g., credit card)
           maxLength={maxLength ? maxLength : 100} // Limit the length for numeric input
         />

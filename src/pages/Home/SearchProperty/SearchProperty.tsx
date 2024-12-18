@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import SearchBar from "../../../components/Shared/SearchBar";
 import PropertyItem from "../../../components/Shared/PropertyItem";
-import { propertyDataList } from "../../../data/data";
+// import { propertyDataList } from "../../../data/data";
 // import PropertyItemSkeleton from "../../../components/Shared/SkeletonComponents/PropertyItemSkeleton";
 import { AppDispatch } from "../../../store/store";
 import { useDispatch } from "react-redux";
@@ -32,16 +32,15 @@ const SearchProperty: React.FC = () => {
       };
       const response: any = await dispatch(searchProperty(payload)).unwrap();
 
-      console.log("response>>>", response);
       if (response.data) {
         setpropertyListData(response.data);
         setisPropertiesLoading(false);
       }
     }
   };
-  useEffect(() => {
-    if (propertyListData) console.log(propertyListData);
-  }, [propertyListData]);
+  // useEffect(() => {
+  //   if (propertyListData) console.log(propertyListData);
+  // }, [propertyListData]);
 
   return (
     <>
@@ -68,7 +67,7 @@ const SearchProperty: React.FC = () => {
                   description,
                   // images,
                   suggestedRent,
-                  garage,
+
                   squareFeet,
                   mlsListingPrice,
                   id,
@@ -97,8 +96,6 @@ const SearchProperty: React.FC = () => {
               ))}
           </div>
         </div>
-
-        {/* {   */}
       </div>
     </>
   );

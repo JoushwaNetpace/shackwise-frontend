@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { LoginIcon, ShackwiseLogo } from "../../../config/Images";
 import { Link } from "react-router-dom";
 import { Formik, Form, Field } from "formik";
@@ -14,34 +14,46 @@ import {
 } from "../../../utils/CookieUtils";
 import { fetchUser } from "../../../store/slices/user/userActions";
 import { getUserPriority } from "../../../store/slices/priority/priorityActions";
+import { requestPermission } from "../../../utils/fcmUtils";
 
 const Login: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
+  const [fcmToken, setfcmToken] = useState("");
   // Function to toggle password visibility
   const togglePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
   };
 
-  const handleSubmit = async (values: any) => {
+  const handleSubmit = async (values) => {
     try {
-      const response: any = await dispatch(login(values)).unwrap();
+      const response: any = await dispatch(
+        login({ ...values, fcmToken })
+      ).unwrap();
       // return;
       if (response.success) {
         toast.success(response.message);
+
         // store the token in cookies
-        await removeTokenFromCookie();
-        await storeTokenInCookie(response.data.token.authToken);
+        removeTokenFromCookie();
+        storeTokenInCookie(response.data.token.authToken);
 
         await dispatch(fetchUser()).unwrap();
         await dispatch(getUserPriority()).unwrap();
       }
     } catch (error: any) {
-      console.log("error login screen??", error.message || error);
+      console.log("error login screen", error.message || error);
       toast.error(error.message || "An error occurred during login");
     }
   };
+  useEffect(() => {
+    const requestPermissionAsync = async () => {
+      const token = await requestPermission();
+      console.log("token>>", token);
+      if (token) setfcmToken(token);
+    };
+    requestPermissionAsync();
+  }, []);
 
   return (
     <div className="container">
