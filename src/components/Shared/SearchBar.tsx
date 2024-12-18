@@ -148,8 +148,9 @@ const SearchBar: React.FC<SearchBarProps> = ({
         </div>
 
         <button
-          className="search-btn"
-          style={buttonStyle}
+          className={searchText != "" ? "search-btn" : "search-btn-disabled"}
+          disabled={searchText == "" && true}
+          style={{ ...buttonStyle }}
           onClick={handleSearchClick}
         >
           Search

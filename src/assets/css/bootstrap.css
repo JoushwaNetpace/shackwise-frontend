@@ -17102,6 +17102,15 @@ yx-axis
   font-size: 14px;
   font-family: "Roboto";
 }
+.search-btn-disabled {
+  background: #ccc;
+  border: 0px solid #ccc;
+  color: #fff;
+  padding: 14px 40px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-family: "Roboto";
+}
 .search-btn:hover {
   background: #3f9acf;
 }

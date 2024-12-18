@@ -14,6 +14,7 @@ import {
   selectAcceptInvite,
   selectRatingMode,
   selectUser,
+  selectUserNotifications,
 } from "../../store/slices/user/userSelectors";
 import { removeTokenFromCookie } from "../../utils/CookieUtils";
 import {
@@ -22,17 +23,22 @@ import {
   changeShareCompareModalAction,
 } from "../../store/slices/modal/modalActions";
 import {
+  fetchUserNotifications,
   setAcceptInvite,
   setRatingModeAction,
 } from "../../store/slices/user/userActions";
 import { AppDispatch } from "../../store/store";
 import { getInitials } from "../../utils/commonUtils";
+import NotificationItem from "../Shared/NotificationItem";
+import { INotificationDocument } from "../../types/types";
+import socketInstance from "../../config/socketInstance";
 
 export const Header: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const userData = useSelector(selectUser);
+  const userNotifications = useSelector(selectUserNotifications);
   const acceptInvite = useSelector(selectAcceptInvite);
   const RatingMode = useSelector(selectRatingMode);
 
@@ -42,24 +48,21 @@ export const Header: React.FC = () => {
   const [showPushyNavMenu, setshowPushyNavMenu] = useState(false);
 
   // Ref to detect click outside the dropdown
-  const dropdownRef = useRef(null);
-  const mobileNavRef = useRef(null);
+  const dropdownRef = useRef<any>(null);
+  const mobileNavRef = useRef<any>(null);
 
   // Use the custom hook to handle click outside the dropdown
-  const { handleEvent } = useClickOutside(dropdownRef, (isOutside, event) => {
+  useClickOutside(dropdownRef, (isOutside) => {
     if (isOutside) {
       setShowDropdown(false); // Close dropdown when click outside
     }
   });
   // Use the custom hook to handle click outside the dropdown
-  const { handleEvent: handleEventPushyNav } = useClickOutside(
-    mobileNavRef,
-    (isOutside, event) => {
-      if (isOutside) {
-        setshowPushyNavMenu(false); // Close dropdown when click outside
-      }
+  useClickOutside(mobileNavRef, (isOutside) => {
+    if (isOutside) {
+      setshowPushyNavMenu(false); // Close dropdown when click outside
     }
-  );
+  });
 
   // Toggle dropdown visibility
   const handleDropdownToggle = () => {
@@ -69,8 +72,8 @@ export const Header: React.FC = () => {
   const handleLogout = async () => {
     try {
       // Dispatch the logout action
-      await removeTokenFromCookie();
       dispatch(logout()).unwrap();
+      // await removeTokenFromCookie();
       dispatch(setAcceptInvite(false)).unwrap();
       dispatch(setRatingModeAction("")).unwrap();
     } catch (error) {
@@ -80,8 +83,8 @@ export const Header: React.FC = () => {
   useEffect(() => {
     const handleEvent = (event: MouseEvent) => {
       if (
-        dropdownRef.current &&
-        !dropdownRef.current.contains(event.target as Node)
+        dropdownRef?.current &&
+        !dropdownRef?.current.contains(event.target as Node)
       ) {
         setShowDropdown(false);
       }
@@ -97,6 +100,29 @@ export const Header: React.FC = () => {
   const navigateTo = (url: string) => {
     navigate(url);
   };
+
+  useEffect(() => {
+    socketInstance.connect();
+
+    socketInstance.on("connect", () => {
+      console.log("socketInstance connected:", socketInstance.id);
+      socketInstance.emit("join", userData?._id);
+
+      socketInstance.on("new-notification", (payload) => {
+        console.log("payload>>", payload);
+        dispatch(fetchUserNotifications()).unwrap();
+      });
+    });
+
+    socketInstance.on("disconnect", () => {
+      console.log("socketInstance disconnected");
+    });
+
+    // Cleanup function to disconnect the socketInstance
+    return () => {
+      socketInstance.disconnect();
+    };
+  }, []);
   return (
     <>
       {/* <!-- Pushy Menu Mobile--> */}
@@ -111,7 +137,7 @@ export const Header: React.FC = () => {
           <ul>
             <li className="pushy-link">
               <Link to="#" className="menu-notification relative">
-                <div className="user-profile">
+                <div className="user-profile" onClick={handleLogout}>
                   {getInitials(userData ? userData?.name : "User Name")}
                 </div>
                 <div className="profile-name-mobile">
@@ -195,7 +221,11 @@ export const Header: React.FC = () => {
               <Link to="#">
                 <div className="position-relative">
                   <img src={BellIcon} />
-                  <span className="notification-red-circle">3</span>
+                  {userNotifications?.length !== 0 && (
+                    <span className="notification-red-circle">
+                      {userNotifications?.length}
+                    </span>
+                  )}
                 </div>
                 <div className="ml-3">Notifications</div>
               </Link>
@@ -301,7 +331,11 @@ export const Header: React.FC = () => {
                   onClick={handleDropdownToggle}
                 >
                   <img src={BellIcon} />
-                  <span className="notification-red-circle">3</span>
+                  {userNotifications?.length !== 0 && (
+                    <span className="notification-red-circle">
+                      {userNotifications?.length}
+                    </span>
+                  )}
                 </a>
 
                 <div
@@ -322,48 +356,26 @@ export const Header: React.FC = () => {
                     </div>
 
                     <ul id="scroll" className="notifi-scroll p-0">
-                      <div>
-                        <li className="notification-box">
-                          <div className="row-info">
-                            <div className="text-left">
-                              <div className="userpic-wrap">
-                                <img
-                                  src={UserPic}
-                                  className="w-100 rounded-circle"
-                                />
-                              </div>
-                            </div>
-                            <div className="flex-1">
-                              <strong className="text-info">
-                                Rony sent you a{" "}
-                                {RatingMode == "SHARE" ? "Share" : "Compare"}{" "}
-                                request
-                              </strong>
-                            </div>
-                            <div>
-                              <a
-                                href="#"
-                                className="accept-text"
-                                onClick={() => {
-                                  dispatch(setRatingModeAction("SHARE"));
-
-                                  dispatch(setAcceptInvite(!acceptInvite));
-                                  handleDropdownToggle();
-                                }}
-                              >
-                                Accept
-                              </a>
-                            </div>
-                          </div>
-                        </li>
-
-                        <br />
-                      </div>
-                      <li className="footer bg-dark text-center">
-                        <a href="" className="view-details-link">
-                          View All Notifications
-                        </a>
-                      </li>
+                      {userNotifications?.length !== 0 ? (
+                        <>
+                          {userNotifications?.map(
+                            ({ ...props }: INotificationDocument) => (
+                              <NotificationItem {...props} />
+                            )
+                          )}
+                          <li className="footer bg-dark text-center">
+                            <a href="" className="view-details-link">
+                              View All Notifications
+                            </a>
+                          </li>
+                        </>
+                      ) : (
+                        <div className="flex-1 text-center">
+                          <strong className="text-info">
+                            No Notifications!
+                          </strong>
+                        </div>
+                      )}
                     </ul>
                   </div>
                 </div>

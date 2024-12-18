@@ -1,6 +1,6 @@
 import { RouterProvider } from "react-router-dom";
 import "./App.css";
-import { router } from "./routes/Router";
+import { router } from "./routes/router";
 
 // import "./assets/styles/_main.scss";
 import "./assets/styles/_fahad-responsive.scss";
@@ -13,7 +13,21 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 import { Toaster } from "react-hot-toast";
 import { ModalList } from "./components/common/ModalList";
 import { ConfigProvider } from "antd";
+import { useEffect } from "react";
+import { messaging } from "./config/firebaseConfig";
+import { onMessage } from "firebase/messaging";
 function App() {
+  useEffect(() => {
+    const unsubscribe = onMessage(messaging, (payload) => {
+      console.log("Message received. ", payload);
+      // Customize notification display here
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   return (
     <ConfigProvider
       theme={{

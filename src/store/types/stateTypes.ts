@@ -15,6 +15,7 @@ export interface UserState {
   error: string | null; // Error message
   userPriority?: PriorityPayload | null; // Priority payload
   rateMode?: RateModeEnum | ""; // New rate mode property with enum values
+  notifications?: [] | ""; // New rate mode property with enum values
 }
 export interface PriorityState {
   loading: boolean; // Loading state

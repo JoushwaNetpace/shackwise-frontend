@@ -1,25 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import { Header } from "../components/common/Header";
 
 export const MainLayout: React.FC = () => {
-  // useEffect(() => {
-  //   // Create the script element
-  //   const script = document.createElement("script");
-  //   script.src =
-  //     "https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js";
-  //   script.async = true;
-  //   script.onload = () => console.log("Bootstrap script loaded!");
-
-  //   // Append the script to the body
-  //   document.body.appendChild(script);
-
-  //   // Cleanup the script when the component is unmounted
-  //   return () => {
-  //     document.body.removeChild(script);
-  //   };
-  // }, []);
-
+  const year = new Date().getFullYear();
   return (
     <div className="body-inner">
       <Header />
@@ -40,7 +24,7 @@ export const MainLayout: React.FC = () => {
         <br />
 
         <div className="container-fluid footer text-center">
-          <p>Copyright © 2024 Shackwise | All Rights Reserved </p>
+          <p>Copyright © {year} Shackwise | All Rights Reserved </p>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 // src/components/ModalList.tsx
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   selectShowHowItWorks,
@@ -14,21 +14,43 @@ import {
   changeShareCompareModalAction,
 } from "../../store/slices/modal/modalActions";
 import { AppDispatch } from "../../store/store";
-import { RateModeEnum } from "../../store/types/stateTypes";
+
 import {
   setAcceptInvite,
   setRatingModeAction,
 } from "../../store/slices/user/userActions";
 import { selectAcceptInvite } from "../../store/slices/user/userSelectors";
-
+import useClickOutside from "../../hooks/useClickOutside";
 export const ModalList: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
+  // refs
+
+  const showShareCompareRef = useRef<HTMLDivElement>(null);
+  const showHowItWorksRef = useRef<HTMLDivElement>(null);
+  const showInviteConnectRef = useRef<HTMLDivElement>(null);
+
   const showShareCompare = useSelector(selectShowShareCompare);
   const showHowItWorks = useSelector(selectShowHowItWorks);
   const showInviteConnect = useSelector(selectShowInviteConnect);
   const acceptInvite = useSelector(selectAcceptInvite);
 
-  const [selectedMode, setSelectedMode] = useState<RateModeEnum>("SHARE");
+  const [selectedMode, setSelectedMode] = useState<string>("SHARE");
+
+  useClickOutside(showShareCompareRef, (isOutside) => {
+    if (isOutside) {
+      dispatch(changeShareCompareModalAction(false));
+    }
+  });
+  useClickOutside(showHowItWorksRef, (isOutside) => {
+    if (isOutside) {
+      dispatch(changeHowItWorksModalAction(false));
+    }
+  });
+  useClickOutside(showInviteConnectRef, (isOutside) => {
+    if (isOutside) {
+      dispatch(changeInviteConnectModalAction(false));
+    }
+  });
 
   const handleSetUserRatingMode = async () => {
     dispatch(setRatingModeAction(selectedMode));
@@ -43,6 +65,7 @@ export const ModalList: React.FC = () => {
           <div
             className="modal-wrap col-lg-4 col-sm-10"
             style={{ height: "auto", borderRadius: "10px" }}
+            ref={showShareCompareRef}
           >
             <button
               aria-label="Close"
@@ -101,6 +124,7 @@ export const ModalList: React.FC = () => {
           <div
             className="modal-wrap col-lg-4 col-sm-10"
             style={{ height: "auto", borderRadius: "10px" }}
+            ref={showInviteConnectRef}
           >
             <button
               aria-label="Close"
@@ -132,10 +156,8 @@ export const ModalList: React.FC = () => {
                   </div>
                   <select name="" id="" className="customSelect">
                     <option value="">Select item</option>
-                    <option value="1">Option 1</option>
-                    <option value="2">Option 2</option>
-                    <option value="3">Option 3</option>
-                    <option value="4">Option 4</option>
+                    <option value="partner">Partner</option>
+                    <option value="agent">Agent</option>
                   </select>
 
                   <br />
@@ -157,7 +179,7 @@ export const ModalList: React.FC = () => {
       )}
       {showHowItWorks && (
         <div className="overlay">
-          <div className="modal-wrap">
+          <div className="modal-wrap" ref={showHowItWorksRef}>
             <button
               aria-label="Close"
               className="close-modal"

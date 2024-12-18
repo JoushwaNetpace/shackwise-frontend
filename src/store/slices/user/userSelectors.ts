@@ -3,6 +3,8 @@
 import { UserState } from "../../types/stateTypes";
 
 export const selectUser = (state: { user: UserState }) => state.user.user;
+export const selectUserNotifications = (state: { user: UserState }) =>
+  state.user.notifications;
 export const selectAcceptInvite = (state: { user: UserState }) =>
   state.user.acceptInvite;
 export const selectRatingMode = (state: { user: UserState }) =>

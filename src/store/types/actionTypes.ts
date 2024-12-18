@@ -8,6 +8,7 @@ export const LOGOUT = "auth/logout";
 
 // USER ACTION TYPES
 export const FETCH_USER = "user/fetchUser";
+export const FETCH_USER_NOTIFICATIONS = "user/fetchUserNotifications";
 export const ACCEPT_INVITE = "user/acceptInvite";
 export const SET_MODE = "user/setMode";
 
